@@ -1,0 +1,25 @@
+
+:root{
+    --color-primary: #9034db;
+    --color-secondary: #6b5a5a;
+}
+
+.landing_nav{
+    @apply text-sm font-medium hover:text-green-400 transition;
+}
+
+.card_nos_section{
+    @apply bg-slate-800/70 p-6 rounded-xl backdrop-blur;
+}
+
+.card_nos_section_h3{
+    @apply text-green-400 font-semibold mb-2;
+}
+
+.card_nos_section_p{
+    @apply text-gray-400 text-sm;
+}
+
+.landing_links{
+    @apply hover:text-white cursor-pointer;
+}

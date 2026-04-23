@@ -4,6 +4,7 @@ import card1 from "../../assets/women_barras.png";
 import card2 from "../../assets/men_grafica.png";
 import card3 from "../../assets/target.png";
 import card4 from "../../assets/money.png";
+import "./style.css";
 
 import "swiper/css";
 import "swiper/css/pagination";

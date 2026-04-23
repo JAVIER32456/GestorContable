@@ -13,6 +13,7 @@ import Logo from '../../assets/logo.png';
 import { motion } from "framer-motion";
 import Carrusel from './carrusel';
 import { Link } from "react-router-dom";
+import "./style.css";
 
 
 const Home = () => {
@@ -31,9 +32,9 @@ const Home = () => {
 
             {/* Navigation */}
             <nav className='flex items-center gap-8'>
-                <a href="#inicio" className='text-sm font-medium hover:text-green-400 transition'>INICIO</a>
-                <a href="#nosotros" className='text-sm font-medium hover:text-green-400 transition'>NOSOTROS</a>
-                <a href="#contacto" className='text-sm font-medium hover:text-green-400 transition'>CONTACTO</a>
+                <a href="#inicio" className='landing_nav'>INICIO</a>
+                <a href="#nosotros" className='landing_nav'>NOSOTROS</a>
+                <a href="#contacto" className='landing_nav'>CONTACTO</a>
             </nav>
 
             {/* Buttons */}
@@ -182,30 +183,31 @@ const Home = () => {
                 {/* Valores */}
                 <div className="grid md:grid-cols-3 gap-6 mt-10">
 
-                <div className="bg-slate-800/70 p-6 rounded-xl backdrop-blur">
-                    <h3 className="text-green-400 font-semibold mb-2">
-                    Simplicidad
+                <div className="card_nos_section">
+                    <h3 className="card_nos_section_h3">
+                        Simplicidad
                     </h3>
-                    <p className="text-gray-400 text-sm">
-                    Diseñamos herramientas fáciles de usar para cualquier persona.
+                    <p className="card_nos_section_p">
+                        Diseñamos herramientas fáciles de usar para cualquier persona.
                     </p>
                 </div>
 
-                <div className="bg-slate-800/70 p-6 rounded-xl backdrop-blur">
-                    <h3 className="text-green-400 font-semibold mb-2">
-                    Claridad
+                <div className="card_nos_section">
+                    <h3 className="card_nos_section_h3">
+                        Claridad
                     </h3>
-                    <p className="text-gray-400 text-sm">
-                    Mostramos tu información financiera de forma visual y comprensible.
+                    <p className="card_nos_section_p">
+                        Mostramos tu información financiera de forma visual y comprensible.
                     </p>
                 </div>
 
-                <div className="bg-slate-800/70 p-6 rounded-xl backdrop-blur">
-                    <h3 className="text-green-400 font-semibold mb-2">
-                    Control
+
+                <div className="card_nos_section">
+                    <h3 className="card_nos_section_h3">
+                        Control
                     </h3>
-                    <p className="text-gray-400 text-sm">
-                    Te damos el poder de tomar mejores decisiones con tu dinero.
+                    <p className="card_nos_section_p">
+                        Te damos el poder de tomar mejores decisiones con tu dinero.
                     </p>
                 </div>
 
@@ -235,10 +237,10 @@ const Home = () => {
 
                 {/* Redes */}
                 <div className="flex gap-4 pt-2">
-                    <a href="#" className="hover:text-white cursor-pointer"><CgFacebook /></a>
-                    <a href="#" className="hover:text-white cursor-pointer"><PiInstagramLogoFill /></a>
-                    <a href="#" className="hover:text-white cursor-pointer"><FaLinkedin /></a>
-                    <a href="#" className="hover:text-white cursor-pointer"><RiWhatsappFill /></a>
+                    <a href="#" className="landing_links"><CgFacebook /></a>
+                    <a href="#" className="landing_links"><PiInstagramLogoFill /></a>
+                    <a href="#" className="landing_links"><FaLinkedin /></a>
+                    <a href="#" className="landing_links"><RiWhatsappFill /></a>
                 </div>
                 </div>
 
@@ -246,9 +248,9 @@ const Home = () => {
                 <div>
                 <h3 className="text-white font-semibold mb-4">Producto</h3>
                     <ul className="space-y-2 text-sm">
-                        <li className="hover:text-white cursor-pointer">Funciones</li>
-                        <li className="hover:text-white cursor-pointer">Precios</li>
-                        <li className="hover:text-white cursor-pointer">Actualizaciones</li>
+                        <li className="landing_links">Funciones</li>
+                        <li className="landing_links">Precios</li>
+                        <li className="landing_links">Actualizaciones</li>
                     </ul>
                 </div>
 
@@ -256,9 +258,9 @@ const Home = () => {
                 <h3 className="text-white font-semibold mb-4">Compañía</h3>
                     <ul className="space-y-2 text-sm">
                         
-                        <li className="hover:text-white cursor-pointer"><a href="#">Inicio</a></li>
-                        <li className="hover:text-white cursor-pointer"><a href="#nosotros">Nosotros</a></li>
-                        <li className="hover:text-white cursor-pointer"><a href="#contacto">Contacto</a></li>
+                        <li className="landing_links"><a href="#">Inicio</a></li>
+                        <li className="landing_links"><a href="#nosotros">Nosotros</a></li>
+                        <li className="landing_links"><a href="#contacto">Contacto</a></li>
                         
                     </ul>
                 </div>
@@ -266,9 +268,9 @@ const Home = () => {
                 <div>
                 <h3 className="text-white font-semibold mb-4">Soporte</h3>
                     <ul className="space-y-2 text-sm">
-                        <li className="hover:text-white cursor-pointer">Ayuda</li>
-                        <li className="hover:text-white cursor-pointer">Terminos y condiciones</li>
-                        <li className="hover:text-white cursor-pointer">Politicas de Privacidad</li>
+                        <li className="landing_links">Ayuda</li>
+                        <li className="landing_links">Terminos y condiciones</li>
+                        <li className="landing_links">Politicas de Privacidad</li>
                     </ul>
                 </div>
 
