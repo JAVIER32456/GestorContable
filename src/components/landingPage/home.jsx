@@ -255,9 +255,10 @@ const Home = () => {
                 <div>
                 <h3 className="text-white font-semibold mb-4">Compañía</h3>
                     <ul className="space-y-2 text-sm">
-                        <li className="hover:text-white cursor-pointer">Nosotros</li>
-                        <li className="hover:text-white cursor-pointer">Blog</li>
-                        <li className="hover:text-white cursor-pointer">Contacto</li>
+                        
+                        <li className="hover:text-white cursor-pointer"><a href="#">Inicio</a></li>
+                        <li className="hover:text-white cursor-pointer"><a href="#nosotros">Nosotros</a></li>
+                        <li className="hover:text-white cursor-pointer"><a href="#contacto">Contacto</a></li>
                         
                     </ul>
                 </div>
