@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import imgPc from '../../assets/pc.png';
 import Acceso from '../../assets/acceso.png';
 import Navegador from '../../assets/navegador.png';
 import Enlace from '../../assets/graficoBarras.png';
 import { Typewriter } from 'react-simple-typewriter';
 import { PiInstagramLogoFill } from "react-icons/pi";
+import ModalContacto from '../modal/modalContacto';
 import { RiWhatsappFill } from "react-icons/ri";
 import { CgFacebook } from "react-icons/cg";
 import { FaLinkedin } from "react-icons/fa";
 import Logo from '../../assets/logo.png';
+import { Link } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import Carrusel from './carrusel';
-import { Link } from "react-router-dom";
 import "./style.css";
 
 
 const Home = () => {
+  const [modalContactoAbierto, setModalContactoAbierto] = useState(false)
   return (
     <div className="bg-slate-900 text-white min-h-screen relative overflow-hidden">
         {/* Header */}
@@ -34,7 +36,7 @@ const Home = () => {
             <nav className='flex items-center gap-8'>
                 <a href="#inicio" className='landing_nav'>INICIO</a>
                 <a href="#nosotros" className='landing_nav'>NOSOTROS</a>
-                <a href="#contacto" className='landing_nav'>CONTACTO</a>
+                <a href="#contacto" className='landing_nav ' onClick={() => setModalContactoAbierto(true)}>CONTACTO</a>
             </nav>
 
             {/* Buttons */}
@@ -222,26 +224,26 @@ const Home = () => {
                 {/* IZQUIERDA */}
                 <div className="md:col-span-2 space-y-4">
                 
-                {/* Logo */}
-                <div className='flex flex-row'>
-                    <img src={Logo} alt="Logo" width={30} /> 
-                    <h2 className="text-2xl font-bold text-white">
-                        XPENSES
-                    </h2>
-                </div>
+                    {/* Logo */}
+                    <div className='flex flex-row'>
+                        <img src={Logo} alt="Logo" width={30} /> 
+                        <h2 className="text-2xl font-bold text-white">
+                            XPENSES
+                        </h2>
+                    </div>
 
-                {/* Descripción */}
-                <p className="text-sm leading-relaxed">
-                    Administra tus finanzas personales de forma simple y visual.
-                </p>
+                    {/* Descripción */}
+                    <p className="text-sm leading-relaxed">
+                        Administra tus finanzas personales de forma simple y visual.
+                    </p>
 
-                {/* Redes */}
-                <div className="flex gap-4 pt-2">
-                    <a href="#" className="landing_links"><CgFacebook /></a>
-                    <a href="#" className="landing_links"><PiInstagramLogoFill /></a>
-                    <a href="#" className="landing_links"><FaLinkedin /></a>
-                    <a href="#" className="landing_links"><RiWhatsappFill /></a>
-                </div>
+                    {/* Redes */}
+                    <div className="flex gap-4 pt-2">
+                        <a href="https://www.facebook.com/"  target="_blank" rel="noopener noreferrer" className="landing_links"><CgFacebook /></a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="landing_links"><PiInstagramLogoFill /></a>
+                        <a href="https://www.linkedin.com/"  target="_blank" rel="noopener noreferrer" className="landing_links"><FaLinkedin /></a>
+                        <a href="https://wa.me/"             target="_blank" rel="noopener noreferrer" className="landing_links"><RiWhatsappFill /></a>
+                    </div>
                 </div>
 
                 {/* COLUMNAS */}
@@ -258,15 +260,15 @@ const Home = () => {
                 <h3 className="text-white font-semibold mb-4">Compañía</h3>
                     <ul className="space-y-2 text-sm">
                         
-                        <li className="landing_links"><a href="#">Inicio</a></li>
-                        <li className="landing_links"><a href="#nosotros">Nosotros</a></li>
-                        <li className="landing_links"><a href="#contacto">Contacto</a></li>
+                        <li className="landing_links"><a href="#" >Inicio</a></li>
+                        <li className="landing_links"><a href="#nosotros" >Nosotros</a></li>
+                        <li className="landing_links"><a href="#contacto" onClick={() => setModalContactoAbierto(true)}>Contacto</a></li>
                         
                     </ul>
                 </div>
 
                 <div>
-                <h3 className="text-white font-semibold mb-4">Soporte</h3>
+                    <h3 className="text-white font-semibold mb-4">Soporte</h3>
                     <ul className="space-y-2 text-sm">
                         <li className="landing_links">Ayuda</li>
                         <li className="landing_links">Terminos y condiciones</li>
@@ -280,8 +282,13 @@ const Home = () => {
             <div className="mt-8 text-center text-sm text-gray-500">
                 ©Copyright 2026 All rights Reserved
             </div>
-        </footer> 
+        </footer>
         
+        {/* Modal Contacto */}
+        <ModalContacto 
+          isOpen={modalContactoAbierto} 
+          onClose={() => setModalContactoAbierto(false)} 
+        />
   
     </div>
 

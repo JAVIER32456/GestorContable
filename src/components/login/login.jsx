@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import Logo from '../../assets/logo.png';
 import { LiaEyeSolid } from "react-icons/lia";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Login = () => {
 
@@ -12,9 +13,17 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center relative overflow-hidden">
 
+      {/* Botón de volver atrás */}
+      <Link to="/" className="absolute top-6 left-6 text-white hover:text-green-400 transition"
+        title='Volver a pagina principal'  
+      >
+        <IoIosArrowBack size={24} />
+      </Link>
+
+
       {/* Glow fondo */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-green-500/10 blur-3xl rounded-full"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-emerald-400/10 blur-3xl rounded-full"></div>
+      {/* <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-emerald-400/10 blur-3xl rounded-full"></div> */}
 
       {/* Card */}
       <motion.div
