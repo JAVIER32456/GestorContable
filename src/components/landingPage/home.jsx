@@ -276,7 +276,7 @@ const Home = () => {
                     </p>
 
                     {/* Redes */}
-                    <div className="flex gap-4 pt-2 display_flex justify-center">
+                    <div className="flex gap-4 pt-2 justify-center md:justify-start">
                         <a href="https://www.facebook.com/"  target="_blank" rel="noopener noreferrer" className="landing_links"><CgFacebook /></a>
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="landing_links"><PiInstagramLogoFill /></a>
                         <a href="https://www.linkedin.com/"  target="_blank" rel="noopener noreferrer" className="landing_links"><FaLinkedin /></a>
