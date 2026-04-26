@@ -31,7 +31,7 @@ const SignUp = () => {
 
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-6">
-          <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+          <div className="w-10 h-10 bg-green-500/20 rounded-4xl flex items-center justify-center">
             <img src={Logo} alt="logo" className="w-6" />
           </div>
           <h2 className="text-xl font-bold text-white">XPENSES</h2>
