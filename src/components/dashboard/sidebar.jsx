@@ -17,9 +17,17 @@ const Sidebar = () => {
     }`;
 
   return (
-    <aside className={`h-full bg-slate-950 border-r border-white/5 flex flex-col justify-between p-4 transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'}`}>
-
-      {/* Logo */}
+    <aside className={`
+        h-full bg-slate-900 
+        bg-gradient-to-tl 
+        from-[#020617] 
+        via-[#020617] to-[#031b2c] 
+        relative overflow-hidden 
+        border-r border-white/5 
+        flex flex-col 
+        justify-between p-4 
+        transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'}`}>
+      
       <div>
         {/* Botón hamburguesa */}
         <button
@@ -33,39 +41,40 @@ const Sidebar = () => {
         <nav className="space-y-3">
 
             <NavLink to="/dashboard" end className={linkClass}>
-              <FiHome className="flex-shrink-0 text-xl"  /> 
+              <FiHome className="flex-shrink-0 text-xl" title="Home" /> 
               {isOpen && <span className="">Dashboard</span>}
             </NavLink>
 
             <NavLink to="accounting" className={linkClass}>
-              <FiPieChart className="flex-shrink-0 text-xl" /> 
+              <FiPieChart className="flex-shrink-0 text-xl" title="Contabilidad" /> 
               {isOpen && <span>Contabilidad</span>}
             </NavLink>
 
             <NavLink to="settings" className={linkClass}>
-              <FiSettings className="flex-shrink-0 text-xl" /> 
+              <FiSettings className="flex-shrink-0 text-xl" title="Ajustes" /> 
               {isOpen && <span>Ajustes</span>}
             </NavLink>
-
+            
             <button className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-red-400 transition rounded-lg ${!isOpen && 'justify-start'}`}>
-                <FiLogOut className="flex-shrink-0 text-xl" /> 
-                {isOpen && <span>Cerrar</span>}
+                    <FiLogOut className="flex-shrink-0 text-xl" title="Cerrar sesión" /> 
+                    {isOpen && <span>Cerrar</span>}
+            
             </button>
         </nav>
       </div>
 
       {/* User / Logout */}
       <div className="space-y-3">
-        <div className={`bg-slate-900 p-1 pt-3 pb-3 rounded-xl flex items-center ${isOpen ? 'gap-3' : 'justify-start'}`}>
-          <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold flex-shrink-0">
-            AV
-          </div>
-          {isOpen && (
-            <div>
-              <p className="text-sm text-white">Andrés Vargas</p>
-              <p className="text-xs text-gray-400">admin@xpenses.com</p>
+        <div className={`bg-slate-800 p-1 pt-3 pb-3 rounded-xl flex items-center ${isOpen ? 'gap-3' : 'justify-start'}`}>
+            <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold flex-shrink-0">
+                AV
             </div>
-          )}
+            {isOpen && (
+                <div>
+                <p className="text-sm text-white">Andrés Vargas</p>
+                    <p className="text-xs text-gray-400">admin@xpenses.com</p>
+                </div>
+            )}
         </div>
 
       </div>

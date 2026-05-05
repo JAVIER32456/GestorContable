@@ -1,12 +1,62 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { IoNotificationsOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import Logo from '../../assets/Logo.png';
+import ModalNotificaciones from '../modal/modalNotificaciones';
+import ModalAvatar from '../modal/modalAvatar';
 
 // components/Navbar.jsx
 import { FiMenu, FiBell, FiSearch, FiSettings } from "react-icons/fi";
 
 const Navbar = () => {
+ 
+  // Aquí podrías manejar el estado para mostrar el modal de notificaciones
+  const [modalNotificaciones, setModalNotificaciones] = useState(false);
+  const notificacionesRef = useRef(null);
+
+  // Aqui podrías manejar el estado para mostrar el modal de avatar
+  const [modalAvatar, setModalAvatar] = useState(false);
+  const avatarRef = useRef(null);
+
+  // Detectar clicks fuera del dropdown
+
+  // Para notificaciones
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notificacionesRef.current && !notificacionesRef.current.contains(event.target)) {
+        setModalNotificaciones(false);
+      }
+    };
+
+    if (modalNotificaciones) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [modalNotificaciones]);
+  
+  //____________________________________________________________________________  
+  // Para avatar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (avatarRef.current && !avatarRef.current.contains(event.target)) {
+        setModalAvatar(false);
+      }
+    };
+
+    if (modalAvatar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [modalAvatar]);
+  // ___________________________________________________________________________
+
+
   return (
     <header className="h-16 w-full bg-slate-950 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-6">
 
@@ -36,10 +86,13 @@ const Navbar = () => {
         </button>
 
         {/* Notificaciones */}
-        <button className="relative p-2 rounded-lg hover:bg-slate-700 transition">
-          <FiBell className="text-gray-300" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full"></span>
-        </button>
+        <div className="relative" ref={notificacionesRef}>
+          <button className="relative p-2 rounded-lg hover:bg-slate-700 transition" onClick={()=> setModalNotificaciones(!modalNotificaciones)}>
+            <FiBell className="text-gray-300" />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full"></span>
+          </button>
+          <ModalNotificaciones isOpen={modalNotificaciones} onClose={() => setModalNotificaciones(false)} />
+        </div>
 
         {/* Config */}
         <button className="p-2 rounded-lg hover:bg-slate-700 transition">
@@ -47,11 +100,16 @@ const Navbar = () => {
         </button>
 
         {/* Avatar */}
-        <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold cursor-pointer">
-          AV
-        </div>
+          <div  className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold cursor-pointer" ref={avatarRef}>
+            <button onClick={() => setModalAvatar(!modalAvatar)}>
+              AV
+            </button>
+            <ModalAvatar isOpen={modalAvatar} onClose={() => setModalAvatar(false)} />
+          </div>
       </div>
+      
     </header>
+    
   );
 };
 
