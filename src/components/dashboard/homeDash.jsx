@@ -81,7 +81,7 @@ const HomeDash = () => {
 
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-300">
-                      Gastos Fijos
+                      Servicios Publicos
                     </span>
 
                     <span className="text-white text-2xl font-bold">
@@ -103,7 +103,7 @@ const HomeDash = () => {
                     <span className="text-gray-300">
                       Transporte
                     </span>
-
+ 
                     <span className="text-white text-2xl font-bold">
                       $740
                     </span>

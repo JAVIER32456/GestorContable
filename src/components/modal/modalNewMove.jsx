@@ -37,6 +37,26 @@ const ModalNewMove = ({isOpen, onClose}) => {
                     </select>
                 </div>
 
+                <div className='space-y-2'>
+                    <label htmlFor="type" className='block text-sm font-semibold text-gray-300'>
+                        Tipo
+                    </label>
+                    <select
+                        id="type"
+                        className='w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all'
+                    >
+                        <option value="">Selecciona una categoría</option>
+                        <option value="salario">Nomina</option>
+                        <option value="venta">Servicios Publicos</option>
+                        <option value="comida">Netflix</option>
+                        <option value="comida">Combustible</option>
+                        <option value="comida">Supermercado</option>
+                        <option value="comida">Gastos Ocasionales</option>
+                        <option value="comida">Estudios</option>
+                         <option value="comida">Otros</option>
+                    </select>
+                </div>
+
                 {/* Monto */}
                 <div className='space-y-2'>
                     <label htmlFor="amount" className='block text-sm font-semibold text-gray-300'>
