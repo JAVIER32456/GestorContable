@@ -19,18 +19,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log('INICIO: Formulario enviado', formData);
     setError('');
     setLoading(true);
 
     try {
+      console.log('Llamando a loginUser...');
       const data = await loginUser(formData);
+      // console.log('Respuesta recibida:', data);
 
-      if (data?.token) {
-        localStorage.setItem('token', data.token);
+      // Buscar el token en diferentes campos posibles
+      const token = data?.data?.token || data?.token || data?.access_token || data?.jwt;
+      // console.log('Token encontrado:', token);
+      
+      if (token) {
+        localStorage.setItem('token', token);
+        console.log('Token guardado en localStorage');
+        navigate('/dashboard');
+      } else {
+        console.error('No se encontró token en la respuesta:', data);
+        setError('No se recibió token del servidor. Verifica tu backend.');
       }
-
-      navigate('/dashboard');
     } catch (err) {
+      console.error('Error en login:', err);
       setError(err.message || 'No se pudo iniciar sesión');
     } finally {
       setLoading(false);

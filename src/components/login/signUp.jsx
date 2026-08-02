@@ -9,7 +9,8 @@ import { registerUser } from '../../services/authService';
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -33,17 +34,21 @@ const SignUp = () => {
     }
 
     setLoading(true);
+    console.log('Enviando registro:', formData);
 
     try {
-      await registerUser({
-        name: formData.name,
+      const result = await registerUser({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
         password: formData.password
       });
 
+      console.log('Respuesta del registro:', result);
       setSuccess('Cuenta creada correctamente. Redirigiendo al login...');
       setTimeout(() => navigate('/login'), 1200);
     } catch (err) {
+      console.error('Error en registro:', err);
       setError(err.message || 'No se pudo crear la cuenta');
     } finally {
       setLoading(false);
@@ -81,10 +86,23 @@ const SignUp = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
             placeholder="Nombre"
+            required
+            className="w-full bg-slate-800/70 border border-white/10 text-white 
+            rounded-lg px-4 py-3 text-sm 
+            focus:outline-none focus:ring-2 focus:ring-green-500 
+            focus:border-green-500 transition-all duration-200"
+          />
+
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Apellido"
             required
             className="w-full bg-slate-800/70 border border-white/10 text-white 
             rounded-lg px-4 py-3 text-sm 

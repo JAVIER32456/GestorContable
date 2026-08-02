@@ -1,13 +1,20 @@
 // components/Sidebar.jsx
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiHome, FiPieChart, FiSettings, FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import { logoutUser } from "../../services/authService";
 
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/');
+  };
 
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-3 rounded-lg text-sm transition ${
@@ -55,10 +62,11 @@ const Sidebar = () => {
               {isOpen && <span>Ajustes</span>}
             </NavLink>
             
-            <button className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-red-400 transition rounded-lg ${!isOpen && 'justify-start'}`}>
+            <button 
+              onClick={handleLogout}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-red-400 transition rounded-lg ${!isOpen && 'justify-start'}`}>
                     <FiLogOut className="flex-shrink-0 text-xl" title="Cerrar sesión" /> 
                     {isOpen && <span>Cerrar</span>}
-            
             </button>
         </nav>
       </div>

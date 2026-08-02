@@ -10,6 +10,16 @@ const handleResponse = async (response) => {
   return data;
 };
 
+// Obtener headers con el token de autenticación
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    ...(token && { Authorization: `Bearer ${token}` })
+  };
+};
+
+// Login de usuario
 export const loginUser = async ({ email, password }) => {
   const response = await fetch(`${API_URL}/api/auth/login`, {
     method: 'POST',
@@ -22,13 +32,42 @@ export const loginUser = async ({ email, password }) => {
   return handleResponse(response);
 };
 
-export const registerUser = async ({ name, email, password }) => {
+// Registro de usuario
+export const registerUser = async ({ firstName, lastName, email, password }) => {
   const response = await fetch(`${API_URL}/api/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ name, email, password })
+    body: JSON.stringify({ firstName, lastName, email, password })
+  });
+
+  return handleResponse(response);
+};
+
+// Obtener el token
+export const getToken = () => {
+  return localStorage.getItem('token');
+};
+
+// Verificar si el usuario está autenticado
+export const isAuthenticated = () => {
+  return !!localStorage.getItem('token');
+};
+
+// Logout - eliminar el token
+export const logoutUser = () => {
+  localStorage.removeItem('token');
+};
+
+// Petición genérica con autenticación
+export const fetchWithAuth = async (endpoint, options = {}) => {
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      ...getAuthHeaders(),
+      ...options.headers
+    }
   });
 
   return handleResponse(response);

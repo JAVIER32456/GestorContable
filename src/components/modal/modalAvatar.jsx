@@ -1,9 +1,17 @@
 import React from 'react'
 import { IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { logoutUser } from "../../services/authService";
+import { useNavigate } from 'react-router-dom';
 
 const ModalAvatar = ({isOpen, onClose}) => {
+  const navigate = useNavigate();
   if (!isOpen) return null;
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/');
+  };
 
   return (
     <div className="absolute top-16 right-4 bg-slate-800 border-2 text-white/60 border-slate-700 rounded-lg shadow-xl z-50 w-80">
@@ -26,7 +34,7 @@ const ModalAvatar = ({isOpen, onClose}) => {
             <Link to="settings">
                 <button className='w-full font-normal py-2 hover:bg-slate-600 transition'>Configuración</button>
             </Link>
-            <button className='w-full font-normal py-2 hover:bg-slate-600 transition'>Cerrar Sesion</button>
+            <button onClick={handleLogout} className='w-full font-normal py-2 hover:bg-slate-600 transition'>Cerrar Sesion</button>
         </div>
         <div className='flex text-xs mb-2'>
             <button className='w-full font-normal rounded-md py-2 hover:bg-slate-600 transition'>Terminos y condiciones</button>

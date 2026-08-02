@@ -6,6 +6,7 @@ import LoginPage from '../src/pages/loginPage.jsx'
 import SignUp from '../src/pages/signUpPage.jsx'
 import HomeDash from '../src/pages/homeDash.jsx'
 import Home from '../src/pages/homePage.jsx'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 function App() {
   return (
@@ -16,7 +17,14 @@ function App() {
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignUp/>}/>
         
-        <Route path='/dashboard' element={<DashboardLayout/>}> 
+        <Route 
+          path='/dashboard' 
+          element={
+            <ProtectedRoute>
+              <DashboardLayout/>
+            </ProtectedRoute>
+          }
+        > 
 
           <Route index element={<HomeDash/>}/>
           <Route path='transactions' element={<AccountingPage/>} />
