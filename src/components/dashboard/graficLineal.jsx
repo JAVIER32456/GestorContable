@@ -9,12 +9,12 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Ene", gastos: 400 },
-  { name: "Feb", gastos: 700 },
-  { name: "Mar", gastos: 500 },
-  { name: "Abr", gastos: 900 },
+  { name: "Ene", gastos: 500 },
+  { name: "Feb", gastos: 500 },
+  { name: "Mar", gastos: 600 },
+  { name: "Abr", gastos: 660 },
   { name: "May", gastos: 600 },
-  { name: "Jun", gastos: 1200 },
+  { name: "Jun", gastos: 650 },
 ];
 
 

@@ -4,7 +4,6 @@ import GraficLineal from '../dashboard/graficLineal.jsx'
 import TableHome from '../dashboard/tableHome.jsx'
 
 
-
 const data = [
   { name: "Gastos Fijos", value: 200 },
   { name: "Otros", value: 500 },
@@ -49,7 +48,7 @@ const HomeDash = () => {
                   </h2>
 
                   <p className="text-gray-400 text-sm">
-                    Total
+                    Total Movimientos
                   </p>
                 </div>
 
@@ -120,7 +119,7 @@ const HomeDash = () => {
 
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-300">
-                      Supermercado
+                      Supermercado 
                     </span>
 
                     <span className="text-white text-2xl font-bold">
@@ -135,6 +134,7 @@ const HomeDash = () => {
                 </div>
 
               </div>
+                
             </div>
 
 
@@ -148,6 +148,7 @@ const HomeDash = () => {
                 <h2 className="text-white text-lg mb-4">SALDO TOTAL</h2>
                 <p className='text-2xl font-bold'>$ 12.599</p>
                 {/* Contenido gráfico */}
+
             </div> 
 
             {/* __________Resumen rápido ______________*/}
@@ -160,25 +161,13 @@ const HomeDash = () => {
                 <p className="text-gray-400 text-sm">Ingresos</p>
                 <h3 className="text-white text-xl font-bold">$3.200</h3>
 
-              </div>
-
-              <div className="rounded-xl p-4 
-              bg-gradient-to-br from-slate-900/70 to-blue-900/30 
-              border border-white/10 backdrop-blur">
-
                 <p className="text-gray-400 text-sm">Gastos</p>
-                <h3 className="text-white text-xl font-bold">$750</h3>
+                <h3 className="text-xl font-bold text-red-500">$750</h3>
+                
 
               </div>
 
-              <div className="rounded-xl p-4 
-              bg-gradient-to-br from-slate-900/70 to-blue-900/30 
-              border border-white/10 backdrop-blur">
-
-                <p className="text-gray-400 text-sm">Otros Ingresos</p>
-                <h3 className="text-white text-xl font-bold">$250</h3>
-
-              </div>
+            
 
             </div>
           </div>

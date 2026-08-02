@@ -12,23 +12,23 @@ const movimientos = [
   {
     id: 2,
     descripcion: "Salario",
-    categoria: "Ingreso",
+    categoria: "Nomina",
     fecha: "28 Abr 2026",
     tipo: "Ingreso",
     monto: 3200,
   },
   {
     id: 3,
-    descripcion: "Supermercado",
-    categoria: "Comida",
+    descripcion: "Comida",
+    categoria: "Supermercado",
     fecha: "27 Abr 2026",
     tipo: "Gasto",
     monto: -120,
   },
   {
     id: 4,
-    descripcion: "Transporte",
-    categoria: "Movilidad",
+    descripcion: "moto a la Universidad",
+    categoria: "Transporte",
     fecha: "26 Abr 2026",
     tipo: "Gasto",
     monto: -35,
@@ -48,11 +48,11 @@ const TableHome = () => {
             Últimos Movimientos
           </h2>
           <p className="text-slate-400 text-sm">
-            Historial reciente de transacciones
+            Tus transacciones mas recientes
           </p>
         </div>
 
-        <button className="bg-emerald-500 hover:bg-emerald-600 transition px-4 py-2 rounded-xl text-white text-sm">
+        <button className="bg-emerald-500/20 hover:bg-emerald-600 transition px-4 py-2 rounded-xl text-white text-sm">
           Ver todos
         </button>
       </div>
