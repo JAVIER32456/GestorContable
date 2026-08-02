@@ -12,9 +12,12 @@ Esta plataforma está diseñada para facilitar la administración financiera de 
 
 ## Tecnologías y Estilo Visual
 
-- **Framework:** React + Vite
-- **Estilos:** Tailwind CSS
-- **Iconografía:** Imágenes SVG y PNG personalizadas
+- **Framework:**           React + Vite
+- **Backend:(servidor)**   Express 
+- **ORM**                  Prisma 
+- **Base de datos**        PostgreSQL
+- **Estilos:**             Tailwind CSS
+- **Iconografía:**         Imágenes SVG y PNG personalizadas
 
 ### Tipografía
 - **Fuente principal:** `Inter`, sans-serif (por defecto en Tailwind CSS)
@@ -35,8 +38,8 @@ Esta plataforma está diseñada para facilitar la administración financiera de 
 
 ---
 # Adicionales
-1.  Swiper:         Para carrusel de Imagenes
+1. Swiper:         Para carrusel de Imagenes
 2. framer-motion :      Para hacer transicion al cargar.
 3. react-simple-typewriter : Para instalar el texto que se escribe y se borra.
 
-> Plataforma creada por Riasthems para el control eficiente de tus finanzas personales.
+> Plataforma creada por ROJA para el control eficiente de tus finanzas personales.

@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Ancho del scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Fondo del scrollbar (Track) */
+  ::-webkit-scrollbar-track {
+    background: #020617; /* bg-slate-950 */
+  }
+
+  /* Barra desplazadora (Thumb) */
+  ::-webkit-scrollbar-thumb {
+    background: #334155; /* bg-slate-700 */
+    border-radius: 4px;
+  }
+
+  /* Barra desplazadora al pasar el mouse */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #22c55e; /* bg-green-500 para combinar con tus botones */
+  }
+}

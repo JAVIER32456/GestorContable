@@ -4,6 +4,7 @@ import card1 from "../../assets/women_barras.png";
 import card2 from "../../assets/men_grafica.png";
 import card3 from "../../assets/target.png";
 import card4 from "../../assets/money.png";
+import "./style.css";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -29,7 +30,7 @@ const FullCarousel = () => {
 
             {/* TEXTO */}
             <div className="flex-1">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold mt-14 mb-4 ">
                 Control total de tus finanzas
               </h2>
               <p className="text-gray-400">
@@ -54,7 +55,7 @@ const FullCarousel = () => {
           <div className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 max-w-6xl mx-auto gap-10">
 
             <div className="flex-1">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 mt-14">
                 Evita gastos innecesarios
               </h2>
               <p className="text-gray-400">
@@ -66,7 +67,7 @@ const FullCarousel = () => {
               <img
                 src={card2}
                 alt="dashboard"
-                className="rounded-xl shadow-2xl"
+                className="rounded-xl shadow-2xl "
               />
             </div>
 
@@ -78,7 +79,7 @@ const FullCarousel = () => {
           <div className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 max-w-6xl mx-auto gap-10">
 
             <div className="flex-1">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold mt-14 mb-4">
                 Planifica tu futuro
               </h2>
               <p className="text-gray-400">
@@ -102,7 +103,7 @@ const FullCarousel = () => {
           <div className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 max-w-6xl mx-auto gap-10">
 
             <div className="flex-1">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold mt-14 mb-4">
                 Tranquilidad financiera
               </h2>
               <p className="text-gray-400">
