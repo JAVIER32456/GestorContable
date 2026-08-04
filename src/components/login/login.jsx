@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import Logo from '../../assets/logo.png';
 import { IoIosArrowBack } from "react-icons/io";
-import { loginUser } from '../../services/authService';
+import { loginUser, setAuthData } from '../../services/authService';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,22 +19,27 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('INICIO: Formulario enviado', formData);
     setError('');
     setLoading(true);
 
     try {
-      console.log('Llamando a loginUser...');
+      // console.log('Llamando a loginUser...');
       const data = await loginUser(formData);
       // console.log('Respuesta recibida:', data);
 
       // Buscar el token en diferentes campos posibles
       const token = data?.data?.token || data?.token || data?.access_token || data?.jwt;
+      
+      // Obtener los datos del usuario
+      const user = data?.data?.user || data?.user || {};
+      
       // console.log('Token encontrado:', token);
+      // console.log('Datos del usuario:', user);
       
       if (token) {
-        localStorage.setItem('token', token);
-        console.log('Token guardado en localStorage');
+        // Guardar token y datos del usuario
+        setAuthData(token, user);
+        console.log('Token y datos de usuario guardados en localStorage');
         navigate('/dashboard');
       } else {
         console.error('No se encontró token en la respuesta:', data);
@@ -146,3 +151,4 @@ const Login = () => {
 }
 
 export default Login
+

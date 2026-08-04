@@ -1,15 +1,16 @@
 // components/Sidebar.jsx
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiHome, FiPieChart, FiSettings, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import { logoutUser } from "../../services/authService";
+import { useAuth } from "../../hooks/useAuth";
 
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const Sidebar = ({ isOpen, onToggle }) => {
+
+  // User para llamar los datos del usuario desde el hook useAuth
+  const { user } = useAuth();
+
   const navigate = useNavigate();
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
     logoutUser();
@@ -38,7 +39,7 @@ const Sidebar = () => {
       <div>
         {/* Botón hamburguesa */}
         <button
-            onClick={toggleSidebar}
+          onClick={onToggle}
             className="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition mb-4"
         >
             {isOpen ? <FiX className="text-gray-300 text-lg" /> : <FiMenu className="text-gray-300 text-lg" />}
@@ -75,12 +76,12 @@ const Sidebar = () => {
       <div className="space-y-3">
         <div className={`bg-slate-800 p-1 pt-3 pb-3 rounded-xl flex items-center ${isOpen ? 'gap-3' : 'justify-start'}`}>
             <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold flex-shrink-0">
-                AV
+                {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'EX'}
             </div>
             {isOpen && (
                 <div>
-                <p className="text-sm text-white">Andrés Vargas</p>
-                    <p className="text-xs text-gray-400">admin@xpenses.com</p>
+                <p className="text-sm text-white">{user?.firstName || 'Usuario'} {user?.lastName || ''}</p>
+                    <p className="text-xs text-gray-400">{user?.email || 'sin correo'}</p>
                 </div>
             )}
         </div>

@@ -4,7 +4,7 @@ import Hero from '../../assets/hero.png'
 const Settings = () => {
   return (
     <div className='text-white'>
-        <div className="
+          <div className="
             w-full
             relative
             grid grid-cols-2
@@ -49,6 +49,14 @@ const Settings = () => {
           <div>
             <h2 className='p-4 border-b-2 border-white/10 '>CONFIGURACION</h2>
           </div>
+          <div className='flex flex-col p-4 text-slate-400'>
+              <button className='p-2 rounded-lg hover:text-white hover:bg-slate-700/90 text-left'>Tipos de Movimiento</button>
+              <button className='p-2 rounded-lg hover:text-white hover:bg-slate-700/90 text-left'>Categorias</button>
+              <button className='p-2 rounded-lg hover:text-white hover:bg-slate-700/90 text-left'>Reportes</button>
+          </div>
+          
+          
+          
     </div>
   )
 }
