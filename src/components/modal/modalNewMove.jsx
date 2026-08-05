@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoClose } from 'react-icons/io5';
+import { getTypeMovements } from '../../services/typeMovementService';
 
 
 const ModalNewMove = ({isOpen, onClose}) => {
+
+    // useEffect para obtener los tipos de movimientos al mostrar  en el componente
+    const [typeMovements, setTypeMovements] = useState([]);
+    useEffect(() => {
+        const fetchTypeMovements = async () => {
+            try {
+                const typeMovements = await getTypeMovements();
+                setTypeMovements(typeMovements);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchTypeMovements();
+    }, []); 
+
+
     if (!isOpen) return null;
   return (
     <div className='fixed inset-0 z-[1000] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center'>
@@ -32,8 +49,11 @@ const ModalNewMove = ({isOpen, onClose}) => {
                         className='w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all'
                     >
                         <option value="">Selecciona un tipo</option>
-                        <option value="ingreso">Ingreso</option>
-                        <option value="egreso">Egreso</option>
+                        {typeMovements.data?.map((typeMovement) => (
+                            <option key={typeMovement.id} value={typeMovement.id}>
+                                {typeMovement.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
