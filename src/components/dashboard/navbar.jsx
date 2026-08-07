@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { IoNotificationsOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import Logo from '../../assets/Logo.png';
+import { useAuth } from '../../hooks/useAuth';
 import ModalNotificaciones from '../modal/modalNotificaciones';
 import ModalAvatar from '../modal/modalAvatar';
 
@@ -9,6 +10,9 @@ import ModalAvatar from '../modal/modalAvatar';
 import { FiMenu, FiBell, FiSearch, FiSettings } from "react-icons/fi";
 
 const Navbar = () => {
+
+  // User para llamar los datos del usuario desde el hook useAuth
+  const { user } = useAuth();
  
   // Aquí podrías manejar el estado para mostrar el modal de notificaciones
   const [modalNotificaciones, setModalNotificaciones] = useState(false);
@@ -100,12 +104,12 @@ const Navbar = () => {
         </button>
 
         {/* Avatar */}
-          <div  className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold cursor-pointer" ref={avatarRef}>
-            <button onClick={() => setModalAvatar(!modalAvatar)}>
-              AV
-            </button>
-            <ModalAvatar isOpen={modalAvatar} onClose={() => setModalAvatar(false)} />
-          </div>
+          <button onClick={() => setModalAvatar(!modalAvatar)}>
+            <div  className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold cursor-pointer" ref={avatarRef}>
+              {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'EX'}
+              <ModalAvatar isOpen={modalAvatar} onClose={() => setModalAvatar(false)} />
+            </div>
+          </button>
       </div>
       
     </header>

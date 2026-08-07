@@ -4,24 +4,24 @@ import Sidebar from '../components/dashboard/sidebar.jsx'
 import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
-  const [open, setOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <div className="h-screen bg-slate-900">
       
       {/* Navbar fijo */}
       <div className="fixed top-0 left-0 w-full z-50">
-        <Navbar toggleSidebar={() => setOpen(!open)} />
+        <Navbar toggleSidebar={() => setIsSidebarOpen((prev) => !prev)} />
       </div>
 
       <div className="flex">
         
         {/* Sidebar fijo */}
-        {open && (
-          <div className="fixed top-16 left-0 h-[calc(100vh-64px)] w-64 z-40">
-            <Sidebar />
-          </div>
-        )}
+        <div
+          className={`fixed top-16 left-0 h-[calc(100vh-64px)] z-40 transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}
+        >
+          <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen((prev) => !prev)} />
+        </div>
 
         {/* Contenido */}
         <main
@@ -32,7 +32,7 @@ const DashboardLayout = () => {
             overflow-y-auto
             h-[calc(100vh-64px)]
             transition-all duration-300
-            ${open ? 'ml-20' : 'ml-0'}
+            ${isSidebarOpen ? 'ml-64' : 'ml-20'}
           `}
         >
           <Outlet />

@@ -1,18 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import GraficLineal from '../dashboard/graficLineal.jsx'
 import TableHome from '../dashboard/tableHome.jsx'
+import { getDataHomeDashboard } from '../../services/dataHomeDash.js'
 
 
-const data = [
-  { name: "Gastos Fijos", value: 200 },
-  { name: "Otros", value: 500 },
-  { name: "Supermercado", value: 300 },
-];
-
+  
 const COLORS = ["#22c55e", "#3b82f6", "#06b6d4"];
 
 const HomeDash = () => {
+
+  const [dataHome, setDataHome] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getDataHomeDashboard();
+        setDataHome(result.data);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log('dataHome:', dataHome);
+
+  //Movimientos con mayor valor en el mes actual
+  const topExpenses = dataHome?.topExpenses || [];
+
+  const chartData =
+  dataHome?.topExpenses?.map((item) => ({
+    name: item.category.name,
+    value: item.total,
+  })) || [];
+
+  
 
   return (
     <div className='text-white'>
@@ -44,17 +68,18 @@ const HomeDash = () => {
                 {/* Centro */}
                 <div className="absolute z-10 flex flex-col items-center">
                   <h2 className="text-2xl font-bold text-white">
-                    $60.500
+                    ${dataHome ? dataHome.currentBalance.toLocaleString() : "Cargando..."}
                   </h2>
 
                   <p className="text-gray-400 text-sm">
                     Total Movimientos
                   </p>
+                  
                 </div>
 
                 <PieChart width={300} height={300}>
                   <Pie
-                    data={data}
+                    data={chartData}
                     innerRadius={85}
                     outerRadius={130}
                     paddingAngle={4}
@@ -62,7 +87,7 @@ const HomeDash = () => {
                     dataKey="value"
                     stroke="transparent"
                   >
-                    {data.map((entry, index) => (
+                    {chartData.map((entry, index) => (
                       <Cell
                         key={index}
                         fill={COLORS[index]}
@@ -74,64 +99,34 @@ const HomeDash = () => {
 
               {/* RIGHT SIDE - STATS */}
               <div className="space-y-8 ">
+                {/* _________________________________________________________ */}
 
-                {/* ITEM */}
-                <div>
+                {topExpenses.map((expense, index) => (
+                  <div key={expense.categoryId}>
 
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-300">
-                      Servicios Publicos
-                    </span>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-gray-300">
+                        {expense.category.name}
+                      </span>
 
-                    <span className="text-white text-2xl font-bold">
-                      $3.200
-                    </span>
+                      <span className="text-white text-2xl font-bold">
+                        ${expense.total.toLocaleString()}
+                      </span>
+                    </div>
+
+                    <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${100 - index * 20}%`,
+                          backgroundColor: COLORS[index % COLORS.length],
+                        }}
+                      />
+                    </div>
+
                   </div>
-
-                  {/* Barra */}
-                  <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="w-[75%] h-full bg-green-400 rounded-full"></div>
-                  </div>
-
-                </div>
-
-                {/* ITEM */}
-                <div>
-
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-300">
-                      Transporte
-                    </span>
- 
-                    <span className="text-white text-2xl font-bold">
-                      $740
-                    </span>
-                  </div>
-
-                  <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="w-[40%] h-full bg-cyan-400 rounded-full"></div>
-                  </div>
-
-                </div>
-
-                {/* ITEM */}
-                <div>
-
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-300">
-                      Supermercado 
-                    </span>
-
-                    <span className="text-white text-2xl font-bold">
-                      $1.200
-                    </span>
-                  </div>
-
-                  <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="w-[55%] h-full bg-emerald-400 rounded-full"></div>
-                  </div>
-
-                </div>
+                ))}
+                {/* _________________________________________________________ */}
 
               </div>
                 
@@ -146,7 +141,7 @@ const HomeDash = () => {
               backdrop-blur-xl mb-2
               ">
                 <h2 className="text-white text-lg mb-4">SALDO TOTAL</h2>
-                <p className='text-2xl font-bold'>$ 12.599</p>
+                <p className='text-2xl font-bold'>{`$${dataHome?.currentBalance?.toLocaleString()}`}</p>
                 {/* Contenido gráfico */}
 
             </div> 
@@ -159,10 +154,10 @@ const HomeDash = () => {
               border border-white/10 backdrop-blur">
 
                 <p className="text-gray-400 text-sm">Ingresos</p>
-                <h3 className="text-white text-xl font-bold">$3.200</h3>
+                <h3 className="text-white text-xl font-bold">{`$${dataHome?.totalIncome?.toLocaleString()}`}</h3>
 
                 <p className="text-gray-400 text-sm">Gastos</p>
-                <h3 className="text-xl font-bold text-red-500">$750</h3>
+                <h3 className="text-xl font-bold text-red-500">{`$${dataHome?.totalExpenses?.toLocaleString()}`}</h3>
                 
 
               </div>
@@ -193,6 +188,7 @@ const HomeDash = () => {
             <GraficLineal/>
           </div>
         </div>
+       
           
       </div>  
     </div>

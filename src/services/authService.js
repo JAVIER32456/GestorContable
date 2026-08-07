@@ -50,14 +50,27 @@ export const getToken = () => {
   return localStorage.getItem('token');
 };
 
+// Obtener los datos del usuario loguado
+export const getUser = () => {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
+
+// Guardar token y datos del usuario
+export const setAuthData = (token, user) => {
+  localStorage.setItem('token', token);
+  localStorage.setItem('user', JSON.stringify(user));
+};
+
 // Verificar si el usuario está autenticado
 export const isAuthenticated = () => {
   return !!localStorage.getItem('token');
 };
 
-// Logout - eliminar el token
+// Logout - eliminar el token y datos del usuario
 export const logoutUser = () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('user');
 };
 
 // Petición genérica con autenticación
