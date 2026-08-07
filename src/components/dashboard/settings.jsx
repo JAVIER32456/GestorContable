@@ -59,16 +59,15 @@ const Settings = () => {
               >
                 Categorias
               </button>
-              <button className='p-2 rounded-lg hover:text-white hover:bg-slate-700/90 text-left'>Reportes</button>
+              <button className='p-2 rounded-lg hover:text-white hover:bg-slate-700/90 text-left'>
+                Reportes Generales
+              </button>
           </div>
 
           <ModalNewCategory
             isOpen={isCategoryModalOpen}
             onClose={() => setIsCategoryModalOpen(false)}
           />
-          
-          
-          
     </div>
   )
 }
