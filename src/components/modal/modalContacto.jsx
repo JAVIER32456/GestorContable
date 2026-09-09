@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
+import sendContact from '../../services/contact'
 
 const ModalContacto = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [formData, setFormData] = useState({  email: '', subject: '', message: '', phone: '', name: ''})
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
@@ -16,17 +17,14 @@ const ModalContacto = ({ isOpen, onClose }) => {
     setLoading(true)
     
     try {
-      // Reemplaza con tu endpoint o servicio de email
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
+      const success = await sendContact(formData)
       
-      if (response.ok) {
+      if (success) {
         alert('¡Mensaje enviado!')
-        setFormData({ name: '', email: '', message: '' })
+        setFormData({ email: '', subject: '',message: '', phone: '', name: '' })
         onClose()
+      } else {
+        alert('No se pudo enviar el mensaje')
       }
     } catch (error) {
       console.error('Error:', error)
@@ -59,7 +57,7 @@ const ModalContacto = ({ isOpen, onClose }) => {
         <p className='text-gray-400 mb-6'>¿Tienes alguna pregunta? ¡Estamos aquí para ayudarte!</p>
 
         <form onSubmit={handleSubmit} className='space-y-4'>
-          <div>
+          {/* <div>
             <label className='block text-sm text-gray-300 mb-2'>Nombre:</label>
             <input 
               type="text" 
@@ -72,11 +70,35 @@ const ModalContacto = ({ isOpen, onClose }) => {
           </div>
 
           <div>
+            <label className='block text-sm text-gray-300 mb-2'>Teléfono:</label>
+            <input 
+              type="tel" 
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className='w-full bg-slate-800/70 border border-white/10 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500'
+              required
+            />
+          </div> */}
+          
+          <div>
             <label className='block text-sm text-gray-300 mb-2'>Correo:</label>
             <input 
               type="email" 
               name="email"
               value={formData.email}
+              onChange={handleChange}
+              className='w-full bg-slate-800/70 border border-white/10 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500'
+              required
+            />
+          </div>
+
+          <div>
+            <label className='block text-sm text-gray-300 mb-2'>Asunto:</label>
+            <input 
+              type="text" 
+              name="subject"
+              value={formData.subject}
               onChange={handleChange}
               className='w-full bg-slate-800/70 border border-white/10 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500'
               required

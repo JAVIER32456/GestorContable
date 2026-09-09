@@ -71,6 +71,7 @@ export const isAuthenticated = () => {
 export const logoutUser = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
+
 };
 
 // Petición genérica con autenticación
@@ -82,6 +83,12 @@ export const fetchWithAuth = async (endpoint, options = {}) => {
       ...options.headers
     }
   });
+
+  if (response.status === 401) {
+    // token inválido o expirado
+    logoutUser();
+    throw new Error('Token inválido o expirado');
+  }
 
   return handleResponse(response);
 };

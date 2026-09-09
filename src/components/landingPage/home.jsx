@@ -44,15 +44,15 @@ const Home = () => {
             {/* Buttons Desktop */}
             <div className='hidden md:flex items-center gap-3'>
                 <Link to="/login">
-                    <button className='text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition'>
+                    <button className='text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition'>
                     Login
                     </button>
                 </Link>
-                <Link to="/signup">
+                {/* <Link to="/signup">
                     <button className='bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition'>
                     Sign Up
                     </button>
-                </Link>
+                </Link> */}
             </div>
 
             {/* Menu Mobile */}
