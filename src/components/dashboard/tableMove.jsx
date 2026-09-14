@@ -61,7 +61,7 @@ const TableMove = () => {
 
   return (
 
-    <div className="bg-[#111827] rounded-2xl p-6 border border-slate-800 shadow-lg min-w-fit">
+    <div className="bg-[#111827] rounded-2xl p-4 sm:p-6 border border-slate-800 shadow-lg w-full max-w-full">
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -80,8 +80,8 @@ const TableMove = () => {
       {/* Barra de búsqueda y filtros */}
       {/* Buscador + Filtros */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
-        <div className="flex-1 flex items-center gap-2 bg-[#0b1220] border border-slate-800 rounded-lg px-4 py-2">
-          <FiSearch className="text-slate-400" />
+        <div className="flex-1 flex items-center gap-2 bg-[#0b1220] border border-slate-800 rounded-lg px-3 sm:px-4 py-2">
+          <FiSearch className="text-slate-400 flex-shrink-0" />
           <input
             type="text"
             value={busqueda}
@@ -91,12 +91,12 @@ const TableMove = () => {
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {["Todos", "Ingreso", "Gasto"].map((tipo) => (
             <button
               key={tipo}
               onClick={() => setFiltroTipo(tipo)}
-              className={`px-4 py-2 rounded-lg text-sm transition ${
+              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm transition whitespace-nowrap ${
                 filtroTipo === tipo
                   ? "bg-slate-700 text-white"
                   : "bg-[#0b1220] text-slate-400 border border-slate-800 hover:bg-slate-800"
@@ -108,17 +108,16 @@ const TableMove = () => {
         </div>
       </div>
 
-      {/* Tabla */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-left">
-
+      {/* Desktop - Tabla */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-slate-800 text-slate-400 text-sm">
-              <th className="pb-4">Descripción</th>
-              <th className="pb-4">Categoría</th>
-              <th className="pb-4">Fecha</th>
-              <th className="pb-4">Tipo</th>
-              <th className="pb-4 text-right">Monto</th>
+            <tr className="border-b border-slate-800 text-slate-400 text-xs">
+              <th className="pb-2 px-1">Descripción</th>
+              <th className="pb-2 px-1">Categoría</th>
+              <th className="pb-2 px-1">Fecha</th>
+              <th className="pb-2 px-1">Tipo</th>
+              <th className="pb-2 px-1 text-right">Monto</th>
             </tr>
           </thead>
 
@@ -128,22 +127,22 @@ const TableMove = () => {
                 key={mov.id}
                 className="border-b border-slate-900 hover:bg-slate-800/40 transition"
               >
-                <td className="py-4 text-white font-medium w-1/3">
+                <td className="py-2 px-1 text-white font-medium truncate max-w-xs">
                   {mov.description}
                 </td>
 
-                <td className="py-4 text-slate-300">
+                <td className="py-2 px-1 text-slate-300 truncate">
                   {mov.category.name}
                 </td>
 
-                <td className="py-4 text-slate-400">
+                <td className="py-2 px-1 text-slate-400 whitespace-nowrap text-xs">
                   {new Date(mov.movementDate).toLocaleDateString("es-CO")}
                 </td>
 
-                <td className="py-4">
+                <td className="py-2 px-1">
                   <span
                     className={`
-                      px-3 py-1 rounded-full text-xs font-medium
+                      px-2 py-0.5 rounded-full text-xs font-medium inline-block
                       ${
                         mov.movementType.name === "Ingreso"
                           ? "bg-emerald-500/20 text-emerald-400"
@@ -157,7 +156,7 @@ const TableMove = () => {
 
                 <td
                   className={`
-                    py-4 text-right font-semibold
+                    py-2 px-1 text-right font-semibold text-sm
                     ${
                       mov.movementType?.name === "Ingreso"
                         ? "text-emerald-400"
@@ -172,52 +171,117 @@ const TableMove = () => {
 
             {movimientosFiltrados.length === 0 && (
               <tr>
-                <td colSpan="5" className="py-8 text-center text-slate-400 text-sm">
+                <td colSpan="5" className="py-4 text-center text-slate-400 text-xs">
                   No se encontraron movimientos
                 </td>
               </tr>
             )}
-            
           </tbody>
         </table>
 
+        {/* Paginación Desktop */}
         <div className="flex items-center justify-end gap-2 mt-4">
-
           <button
-              onClick={() => setPage(1)}
-              disabled={page === 1}
+            onClick={() => setPage(1)}
+            disabled={page === 1}
           >
-              <FiChevronsRight style={{ transform: "rotate(180deg)", color: "gray" }} />
+            <FiChevronsRight style={{ transform: "rotate(180deg)", color: "gray" }} />
           </button>
 
           <button
-              onClick={() => setPage(page - 1)}
-              disabled={page === 1}
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
           >
-              <FiChevronRight style={{ transform: "rotate(180deg)", color: "gray" }} />
+            <FiChevronRight style={{ transform: "rotate(180deg)", color: "gray" }} />
           </button>
 
           <span>
-              {start}-{end} de {meta?.total ?? 0}
+            {start}-{end} de {meta?.total ?? 0}
           </span>
 
           <button
-              onClick={() => setPage(page + 1)}
-              disabled={!meta?.hasMore}
+            onClick={() => setPage(page + 1)}
+            disabled={!meta?.hasMore}
           >
-              <FiChevronRight style={{ color: "gray" }  }/>
+            <FiChevronRight style={{ color: "gray" }} />
           </button>
 
           <button
-              onClick={() => setPage(meta?.totalPages)}
-              disabled={page === meta?.totalPages}
+            onClick={() => setPage(meta?.totalPages)}
+            disabled={page === meta?.totalPages}
           >
-              <FiChevronsRight style={{ color: "gray" }}/>
+            <FiChevronsRight style={{ color: "gray" }} />
           </button>
+        </div>
+      </div>
 
+      {/* Mobile - Tarjetas */}
+      <div className="md:hidden space-y-3 max-w-full">
+        {movimientosFiltrados.map((mov) => (
+          <div
+            key={mov.id}
+            className="bg-slate-800/50 border border-slate-700 rounded-lg p-2"
+          >
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-white font-semibold text-sm truncate">
+                  {mov.description}
+                </h3>
+                <p className="text-slate-400 text-xs truncate">
+                  {mov.category.name} • {new Date(mov.movementDate).toLocaleDateString("es-CO")}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-2">
+              <span
+                className={`text-base font-bold ${
+                  mov.movementType.name === "Ingreso"
+                    ? "text-emerald-400"
+                    : "text-red-400"
+                }`}
+              >
+                ${Number(mov.amount).toLocaleString("es-CO")}
+              </span>
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  mov.movementType.name === "Ingreso"
+                    ? "bg-emerald-500/20 text-emerald-400"
+                    : "bg-red-500/20 text-red-400"
+                }`}
+              >
+                {mov.movementType.name}
+              </span>
+            </div>
+          </div>
+        ))}
+
+        {movimientosFiltrados.length === 0 && (
+          <div className="py-8 text-center text-slate-400 text-sm">
+            No se encontraron movimientos
+          </div>
+        )}
+
+        {/* Paginación Mobile */}
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <button onClick={() => setPage(1)} disabled={page === 1}>
+            <FiChevronsRight style={{ transform: "rotate(180deg)", color: "gray" }} />
+          </button>
+          <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+            <FiChevronRight style={{ transform: "rotate(180deg)", color: "gray" }} />
+          </button>
+          <span className="text-xs">{start}-{end} de {meta?.total ?? 0}</span>
+          <button onClick={() => setPage(page + 1)} disabled={!meta?.hasMore}>
+            <FiChevronRight style={{ color: "gray" }} />
+          </button>
+          <button onClick={() => setPage(meta?.totalPages)} disabled={page === meta?.totalPages}>
+            <FiChevronsRight style={{ color: "gray" }} />
+          </button>
         </div>
       </div>
     </div>
+
+    
   );
 };
 

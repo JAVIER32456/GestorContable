@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useIsMobile } from '../hooks/useIsMovile.js'
 import Navbar from '../components/dashboard/navbar.jsx'
 import Sidebar from '../components/dashboard/sidebar.jsx'
 import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const isMobile = useIsMobile();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile); // Cerrado en móvil, abierto en desktop
 
   return (
     <div className="h-screen bg-slate-900">

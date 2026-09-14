@@ -130,12 +130,12 @@ const Statistics = () => {
 
       {/* Gráfico de Barras */}
       <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/40 border border-white/10 backdrop-blur-xl rounded-xl p-4 md:p-6 mb-8">
-        <h3 className="text-lg md:text-xl font-semibold mb-6">Ingresos vs Gastos — últimos 6 meses</h3>
+        <h3 className="text-lg md:text-xl font-semibold mb-6">Contabilidad <span className="text-gray-500 text-sm">últimos 6 meses</span></h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={barChartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
             <XAxis dataKey="month" stroke="#9ca3af" />
-            <YAxis stroke="#9ca3af" formatter={(value) => `$${(value / 1000000).toFixed(1)}M`} />
+            <YAxis stroke="#9ca3af" tickFormatter={(value) => `$${(value / 1000000).toFixed(1)}M`} />
             <Tooltip 
               contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #4b5563' }}
               formatter={(value) => `$${value.toLocaleString()}`}

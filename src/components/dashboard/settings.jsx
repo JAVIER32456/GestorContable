@@ -28,7 +28,7 @@ const Settings = () => {
           <div className="
             w-full
             relative
-            grid grid-cols-2
+            md:grid grid-cols-2
             items-center
             gap-6
             bg-gradient-to-br from-slate-900/80 to-slate-800/40
@@ -60,8 +60,8 @@ const Settings = () => {
                             <input type="email" placeholder={user.email} className='bg-transparent border-b-2 border-green-900 p-2 outline-none' disabled/>
                           </div>
 
-                      <div className='flex gap-3'>
-                        <button className='mt-4 w-44 p-2 border-2 border-green-700 rounded-lg hover:bg-slate-600/70 hover:border-green-500'>Editar</button>
+                      <div className='flex gap-3 flex-col md:flex-row '>
+                        <button className='mt-4 md:w-44 p-2 border-2 border-green-700 rounded-lg hover:bg-slate-600/70 hover:border-green-500'>Editar</button>
                         <button className='mt-4 p-2 border-2 border-green-700 rounded-lg hover:bg-slate-600/70 hover:border-green-500'>Cambiar contraseña</button>
                       </div>
 

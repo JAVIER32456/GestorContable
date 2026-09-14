@@ -42,22 +42,22 @@ const HomeDash = () => {
     <div className='text-white'>
       <div className='w-full h-96 rounded '>
           <h2 className="text-white text-2xl font-semibold m-2">Dashboard</h2>
-        <div className='flex gap-6 mb-6 '>
+        <div className='flex flex-col md:flex-row gap-6 mb-6 '>
 
             <div className="
-            w-full
-            relative
-            grid grid-cols-2
-            items-center
-            gap-6
-            bg-gradient-to-br from-slate-900/80 to-slate-800/40
-            border border-white/10
-            backdrop-blur-xl
-            rounded-3xl
-            p-8
-            overflow-hidden
-            shadow-[0_0_40px_rgba(34,197,94,0.08)]
-            ">
+              w-full
+              relative
+              md:grid grid-cols-2
+              items-center
+              gap-6
+              bg-gradient-to-br from-slate-900/80 to-slate-800/40
+              border border-white/10
+              backdrop-blur-xl
+              rounded-3xl
+              p-8
+              overflow-hidden
+              shadow-[0_0_40px_rgba(34,197,94,0.08)]"
+            >
 
               {/* Glow */}
               <div className="absolute top-0 left-0 w-[250px] h-[250px] bg-green-500/10 blur-3xl rounded-full"></div>
@@ -137,7 +137,7 @@ const HomeDash = () => {
             </div>
 
 
-          <div className='w-1/2 rounded-2xl'>
+          <div className='md:w-1/2 rounded-2xl'>
 
             <div className="w-full flex justify-between col-span-2 rounded-2xl p-4
               bg-gradient-to-br from-[#c6c8cf]/5 to-[#d2d3d2]/10
@@ -183,13 +183,11 @@ const HomeDash = () => {
 
               </div>
 
-            
-
             </div>
           </div>
 
         </div>
-        <div className=" flex gap-6 pb-8  ">
+        <div className=" flex gap-6 pb-8 flex-col md:flex-row ">
           {/* Aquí puedes agregar otro gráfico o información adicional */}
           <div className=' 
             w-full
@@ -205,7 +203,7 @@ const HomeDash = () => {
           >
             <TableHome/>
           </div>
-          <div className=' w-[49%] rounded-xl border border-white/10 backdrop-blur'>
+          <div className=' w-full md:w-[49%] rounded-xl border border-white/10 backdrop-blur'>
             <GraficLineal/>
           </div>
         </div>
