@@ -31,7 +31,7 @@ const Home = () => {
                 <div className='w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center font-bold'>
                     <img src={Logo} alt="Logo"  />
                 </div>
-                <h1 className='text-lg sm:text-xl font-bold'>Expenses</h1>
+                <h1 className='text-lg sm:text-xl font-bold'>xpenses</h1>
             </div>
 
             {/* Navigation Desktop */}
@@ -45,7 +45,7 @@ const Home = () => {
             <div className='hidden md:flex items-center gap-3'>
                 <Link to="/login">
                     <button className='text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition'>
-                    Login
+                    Sign In
                     </button>
                 </Link>
                 {/* <Link to="/signup">

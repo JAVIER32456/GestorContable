@@ -52,7 +52,7 @@ const TableHome = () => {
           </p>
         </div>
 
-        <button className="bg-emerald-500/20 hover:bg-emerald-600 transition px-4 py-2 rounded-xl text-white text-sm">
+        <button className="bg-emerald-500/20 hover:bg-emerald-600 transition px-4 py-2 rounded-lg text-white text-sm">
           Ver todos
         </button>
       </div>
