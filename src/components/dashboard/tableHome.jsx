@@ -39,7 +39,7 @@ const movimientos = [
 const TableHome = () => {
   return (
 
-    <div className="bg-[#111827] rounded-2xl p-4 sm:p-6 border border-slate-800 shadow-lg w-full max-w-full">
+    <div className="bg-[#111827] rounded-2xl p-6 sm:p-6 border border-slate-800 shadow-lg max-w-full">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">

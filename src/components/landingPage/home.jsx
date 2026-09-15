@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import imgPc from '../../assets/pc.png';
+import imgPc from '../../assets/imgPc.png';
 import Acceso from '../../assets/acceso.png';
 import Navegador from '../../assets/navegador.png';
 import Enlace from '../../assets/graficoBarras.png';
@@ -97,7 +97,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className='relative max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-32 md:pt-40 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4'
+          className='relative max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-32 md:pt-40 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-8'
         >
             {/* Círculos de luz difuminados */}
             <div className='absolute -top-0 -left-20 w-80 h-80 bg-green-500 rounded-full blur-3xl opacity-20 pointer-events-none'></div>
@@ -105,13 +105,13 @@ const Home = () => {
             <div className='absolute top-1/2 right-1/4 w-72 h-72 bg-purple-500 rounded-full blur-3xl opacity-10 pointer-events-none'></div>
             {/* Left Content */}
             <motion.div
-              className='flex-1 relative z-10 text-center md:text-left'
+              className='flex-1 relative z-10 text-center md:text-left min-w-0'
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >   
 
-                <h2 className='text-3xl sm:text-4xl md:text-4xl font-bold mb-4 w-84'>Gestiona tus gastos de manera eficiente</h2>
+                <h2 className='text-3xl sm:text-4xl md:text-4xl font-bold mb-4'>Gestiona tus gastos de manera eficiente</h2>
                 <p className='text-gray-400 text-base sm:text-lg mb-8'>
                     <Typewriter
                         words={['La mejor herramienta para controlar tus finanzas personales', 'De manera agil y rapida organiza tus gastos', 'Optimiza tus finanzas y ahorra dinero con nosotros   ']}
@@ -135,19 +135,13 @@ const Home = () => {
             </motion.div>
             {/* Right Content - Imagen con efectos */}
             <motion.div
-              className='flex-1 relative z-10 w-full max-w-xs sm:max-w-md md:max-w-none '
+              className='flex-1 relative z-10 w-full flex items-center justify-center'
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-                {/* Tarjeta principal con gradiente */}
-                <div  className=' h-56 sm:h-80 md:h-96 sm:ml-20 lg:ml-40 flex items-center justify-center md:w-52  '>
-                    {/* Efecto de brillo trasero */}
-                    <div className='absolute inset-0 from-white/100 to-transparent rounded blur-2xl '></div>
-                    {/* Contenedor con sombra */}
-                    
-                    <img src={imgPc} alt="pc" className='max-w-sm sm:max-w-xl lg:max-w-4xl object-contain'/>
-                    
+                <div className='h-auto w-full max-w-md sm:max-w-lg md:max-w-none'>
+                    <img src={imgPc} alt="pc" className='w-full object-contain md:scale-125 lg:scale-150 transition-transform duration-300'/>
                 </div> 
             </motion.div>
         </motion.section>

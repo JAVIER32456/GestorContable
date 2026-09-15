@@ -26,7 +26,7 @@ const GraficLineal = () => {
     border border-white/10
     backdrop-blur-xl
     rounded-xl
-    p-6
+    p-4
     overflow-hidden
     shadow-[0_0_35px_rgba(34,197,94,0.08)]
     ">
@@ -35,7 +35,7 @@ const GraficLineal = () => {
       <div className="absolute top-0 right-0 w-40 h-40 bg-green-500/10 blur-3xl rounded-full"></div>
 
       {/* Header */}
-      <div className="relative z-10 mb-6">
+      <div className="relative z-10 mb-4">
         <h2 className="text-white text-xl font-semibold">
           Gastos Mensuales
         </h2>
@@ -46,7 +46,7 @@ const GraficLineal = () => {
       </div>
 
       {/* Chart */}
-      <div className="h-[269px] relative z-10">
+      <div className="h-[206px] relative z-10">
 
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
