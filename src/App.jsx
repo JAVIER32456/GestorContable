@@ -1,3 +1,4 @@
+import ResetPasswordPage from '../src/pages/resetPasswordPage.jsx'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import StatisticsPage from '../src/pages/statisticsPage.jsx'
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/reset-password' element={<ResetPasswordPage/>}/>
         
         <Route 
           path='/dashboard' 
