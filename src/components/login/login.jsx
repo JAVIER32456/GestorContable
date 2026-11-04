@@ -41,7 +41,7 @@ const Login = () => {
       if (token) {
         // Guardar token y datos del usuario
         setAuthData(token, user);
-        console.log('Token y datos de usuario guardados en localStorage');
+        // console.log('Token y datos de usuario guardados en localStorage');
         navigate('/dashboard');
       } else {
         console.error('No se encontró token en la respuesta:', data);

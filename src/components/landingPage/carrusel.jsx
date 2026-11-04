@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import card1 from "../../assets/women_barras.png";
-import card2 from "../../assets/men_grafica.png";
-import card3 from "../../assets/target.png";
-import card4 from "../../assets/money.png";
+import card1 from "../../assets/women_barras1.png";
+import card2 from "../../assets/men_grafica1.png";
+import card3 from "../../assets/target1.png";
+import card4 from "../../assets/money1.png";
 import "./style.css";
 
 import "swiper/css";

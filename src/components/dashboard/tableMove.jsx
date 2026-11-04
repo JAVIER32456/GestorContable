@@ -18,9 +18,9 @@ const TableMove = () => {
       try {
         const data = await getMovements(page);
 
-        console.log("Página solicitada:", page);
-        console.log("Respuesta:", data);
-        console.log("Meta:", data.meta);
+        // console.log("Página solicitada:", page);
+        // console.log("Respuesta:", data);
+        // console.log("Meta:", data.meta);
 
         setMovimientos(data);
         setMeta(data.meta);

@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
         {/* Botón hamburguesa */}
         <button
           onClick={onToggle}
-            className="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition mb-4"
+            className="hidden md:block p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition mb-4"
         >
             {isOpen ? <FiX className="text-gray-300 text-lg" /> : <FiMenu className="text-gray-300 text-lg" />}
         </button>

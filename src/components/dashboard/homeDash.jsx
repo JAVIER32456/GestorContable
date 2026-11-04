@@ -12,6 +12,9 @@ const COLORS = ["#22c55e", "#3b82f6", "#06b6d4"];
 const HomeDash = () => {
 
   const [dataHome, setDataHome] = useState(null);
+  
+  //TABLA DE MOVIMIENTOS RECIENTES
+  const recentMovements = dataHome?.recentMovements ?? [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +29,7 @@ const HomeDash = () => {
 
     fetchData();
   }, []);
-  console.log('dataHome:', dataHome);
+  // console.log('dataHome:', dataHome);
 
   //Movimientos con mayor valor en el mes actual
   const topExpenses = dataHome?.topExpenses || [];
@@ -201,14 +204,14 @@ const HomeDash = () => {
             overflow-hidden
             shadow-[0_0_40px_rgba(34,197,94,0.08)]'
           >
-            <TableHome/>
+            <TableHome movimientos={recentMovements} />
           </div>
           <div className=' w-full md:w-[49%] rounded-xl border border-white/10 backdrop-blur'>
             <GraficLineal/>
           </div>
         </div>
        
-          
+        
       </div>  
     </div>
   )

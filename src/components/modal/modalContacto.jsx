@@ -54,7 +54,8 @@ const ModalContacto = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        <p className='text-gray-400 mb-6'>¿Tienes alguna pregunta? ¡Estamos aquí para ayudarte!</p>
+        <p className='text-gray-200 font-semibold text-xl'>¿Tienes alguna pregunta?</p>
+        <p className='text-gray-400 mb-6'>¡Estamos aquí para ayudarte!</p>
 
         <form onSubmit={handleSubmit} className='space-y-4'>
           {/* <div>
