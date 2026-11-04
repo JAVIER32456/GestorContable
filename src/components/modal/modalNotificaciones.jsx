@@ -10,7 +10,7 @@ const ModalNotificaciones = ({ isOpen, onClose }) => {
         className="fixed inset-0 z-40" 
         onClick={onClose}
       ></div>
-      <div className='absolute top-12 right-[-90px] bg-slate-800 rounded-lg shadow-xl z-50 w-80'>
+      <div className='absolute top-12 right-[-40px] bg-slate-800 rounded-lg shadow-xl z-50 w-80'>
         <div className='p-4 border-b border-slate-700 flex items-center justify-between'>
           <h3 className='text-lg font-bold text-white'>Notificaciones</h3>
           <button onClick={onClose} className='text-gray-400 hover:text-white transition'>

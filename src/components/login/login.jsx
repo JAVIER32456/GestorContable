@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Logo from '../../assets/logo.png';
 import { IoIosArrowBack } from "react-icons/io";
 import { loginUser, setAuthData } from '../../services/authService';
+import ModalRessetPassword from '../modal/modalRessetPassword';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -39,7 +41,7 @@ const Login = () => {
       if (token) {
         // Guardar token y datos del usuario
         setAuthData(token, user);
-        console.log('Token y datos de usuario guardados en localStorage');
+        // console.log('Token y datos de usuario guardados en localStorage');
         navigate('/dashboard');
       } else {
         console.error('No se encontró token en la respuesta:', data);
@@ -131,9 +133,13 @@ const Login = () => {
         </form>
 
         <div className="flex justify-between items-center mt-4 text-sm text-gray-400">
-          <span className="hover:text-white cursor-pointer">
+          <button
+            type="button"
+            onClick={() => setIsResetModalOpen(true)}
+            className="hover:text-white cursor-pointer"
+          >
             ¿Olvidaste tu contraseña?
-          </span>
+          </button>
         </div>
 
         <p className="text-sm text-gray-400 text-center mt-4">
@@ -146,6 +152,10 @@ const Login = () => {
           </Link>
         </p>
       </motion.div>
+      <ModalRessetPassword
+        isOpen={isResetModalOpen}
+        onClose={() => setIsResetModalOpen(false)}
+      />
     </div>
   );
 }

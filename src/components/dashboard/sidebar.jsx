@@ -1,6 +1,7 @@
 // components/Sidebar.jsx
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiHome, FiPieChart, FiSettings, FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import { ImStatsBars2 } from "react-icons/im";
 import { logoutUser } from "../../services/authService";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -40,7 +41,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
         {/* Botón hamburguesa */}
         <button
           onClick={onToggle}
-            className="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition mb-4"
+            className="hidden md:block p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition mb-4"
         >
             {isOpen ? <FiX className="text-gray-300 text-lg" /> : <FiMenu className="text-gray-300 text-lg" />}
         </button>
@@ -56,6 +57,11 @@ const Sidebar = ({ isOpen, onToggle }) => {
             <NavLink to="accounting" className={linkClass}>
               <FiPieChart className="flex-shrink-0 text-xl" title="Contabilidad" /> 
               {isOpen && <span>Contabilidad</span>}
+            </NavLink>
+
+            <NavLink to="statistics" className={linkClass}>
+              <ImStatsBars2 className="flex-shrink-0 text-xl" title="Estadísticas" /> 
+              {isOpen && <span>Estadísticas</span>}
             </NavLink>
 
             <NavLink to="settings" className={linkClass}>

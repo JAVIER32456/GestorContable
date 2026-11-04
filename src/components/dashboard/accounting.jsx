@@ -16,6 +16,9 @@ const Accounting = () => {
   return (
     <div className='text-white'>
       <div className='pb-3 flex justify-end'>
+        <button className="border border-green-500 hover:bg-green-500 hover:text-slate-100 transition px-4 py-2 mx-4 rounded font-bold text-green-500 text-base">
+          Reportes
+        </button>
         <button className='
           bg-green-500 
           hover:bg-green-600 
@@ -23,9 +26,10 @@ const Accounting = () => {
           font-bold py-2 px-4 
           rounded cursor-pointer' 
           onClick={openModal}>
-          Agregar
+          + Agregar
         </button>
         <ModalNewMove isOpen={isModalOpen} onClose={closeModal} />
+
           
       </div>
       <TableMove />

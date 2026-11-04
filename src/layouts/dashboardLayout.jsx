@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/dashboard/navbar.jsx'
 import Sidebar from '../components/dashboard/sidebar.jsx'
 import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(
+    () => window.matchMedia('(min-width: 768px)').matches
+  );
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const handleBreakpointChange = (event) => {
+      setIsSidebarOpen(event.matches);
+    };
+
+    desktopQuery.addEventListener('change', handleBreakpointChange);
+    return () => desktopQuery.removeEventListener('change', handleBreakpointChange);
+  }, []);
 
   return (
     <div className="h-screen bg-slate-900">

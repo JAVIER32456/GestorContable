@@ -99,9 +99,9 @@ const Navbar = () => {
         </div>
 
         {/* Config */}
-        <button className="p-2 rounded-lg hover:bg-slate-700 transition">
+        {/* <button className="p-2 rounded-lg hover:bg-slate-700 transition">
           <FiSettings className="text-gray-300" />
-        </button>
+        </button> */}
 
         {/* Avatar */}
           <button onClick={() => setModalAvatar(!modalAvatar)}>

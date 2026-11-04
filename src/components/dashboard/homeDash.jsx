@@ -3,7 +3,8 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import GraficLineal from '../dashboard/graficLineal.jsx'
 import TableHome from '../dashboard/tableHome.jsx'
 import { getDataHomeDashboard } from '../../services/dataHomeDash.js'
-
+import { IoTrendingUpOutline,  IoTrendingDownOutline } from "react-icons/io5";
+import { LuWallet } from "react-icons/lu";
 
   
 const COLORS = ["#22c55e", "#3b82f6", "#06b6d4"];
@@ -11,6 +12,9 @@ const COLORS = ["#22c55e", "#3b82f6", "#06b6d4"];
 const HomeDash = () => {
 
   const [dataHome, setDataHome] = useState(null);
+  
+  //TABLA DE MOVIMIENTOS RECIENTES
+  const recentMovements = dataHome?.recentMovements ?? [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +29,7 @@ const HomeDash = () => {
 
     fetchData();
   }, []);
-  console.log('dataHome:', dataHome);
+  // console.log('dataHome:', dataHome);
 
   //Movimientos con mayor valor en el mes actual
   const topExpenses = dataHome?.topExpenses || [];
@@ -36,28 +40,27 @@ const HomeDash = () => {
     value: item.total,
   })) || [];
 
-  
 
   return (
     <div className='text-white'>
       <div className='w-full h-96 rounded '>
-          <h2 className="text-white text-lg mb-4">DASHBOARD</h2>
-        <div className='flex gap-6 mb-6 '>
+          <h2 className="text-white text-2xl font-semibold m-2">Dashboard</h2>
+        <div className='flex flex-col md:flex-row gap-6 mb-6 '>
 
             <div className="
-            w-full
-            relative
-            grid grid-cols-2
-            items-center
-            gap-6
-            bg-gradient-to-br from-slate-900/80 to-slate-800/40
-            border border-white/10
-            backdrop-blur-xl
-            rounded-3xl
-            p-8
-            overflow-hidden
-            shadow-[0_0_40px_rgba(34,197,94,0.08)]
-            ">
+              w-full
+              relative
+              md:grid grid-cols-2
+              items-center
+              gap-6
+              bg-gradient-to-br from-slate-900/80 to-slate-800/40
+              border border-white/10
+              backdrop-blur-xl
+              rounded-3xl
+              p-8
+              overflow-hidden
+              shadow-[0_0_40px_rgba(34,197,94,0.08)]"
+            >
 
               {/* Glow */}
               <div className="absolute top-0 left-0 w-[250px] h-[250px] bg-green-500/10 blur-3xl rounded-full"></div>
@@ -67,7 +70,7 @@ const HomeDash = () => {
 
                 {/* Centro */}
                 <div className="absolute z-10 flex flex-col items-center">
-                  <h2 className="text-2xl font-bold text-white">
+                  <h2 className="text-1xl font-bold text-white">
                     ${dataHome ? dataHome.currentBalance.toLocaleString() : "Cargando..."}
                   </h2>
 
@@ -77,11 +80,11 @@ const HomeDash = () => {
                   
                 </div>
 
-                <PieChart width={300} height={300}>
+                <PieChart width={200} height={200}>
                   <Pie
                     data={chartData}
-                    innerRadius={85}
-                    outerRadius={130}
+                    innerRadius={65}
+                    outerRadius={100}
                     paddingAngle={4}
                     cornerRadius={8}
                     dataKey="value"
@@ -101,7 +104,11 @@ const HomeDash = () => {
               <div className="space-y-8 ">
                 {/* _________________________________________________________ */}
 
-                {topExpenses.map((expense, index) => (
+                {topExpenses.length === 0 ? (
+                  <div className="text-gray-400 text-sm flex items-center justify-center h-full min-h-[120px]">
+                    Aún no tienes gastos registrados este mes 🎉
+                  </div>
+                ) : topExpenses.map((expense, index) => (
                   <div key={expense.categoryId}>
 
                     <div className="flex justify-between mb-2">
@@ -109,7 +116,7 @@ const HomeDash = () => {
                         {expense.category.name}
                       </span>
 
-                      <span className="text-white text-2xl font-bold">
+                      <span className="text-white text-1xl font-bold">
                         ${expense.total.toLocaleString()}
                       </span>
                     </div>
@@ -118,7 +125,7 @@ const HomeDash = () => {
                       <div
                         className="h-full rounded-full"
                         style={{
-                          width: `${100 - index * 20}%`,
+                          width: `${(expense.total / 2000000) * 100}%`,
                           backgroundColor: COLORS[index % COLORS.length],
                         }}
                       />
@@ -133,15 +140,22 @@ const HomeDash = () => {
             </div>
 
 
-          <div className='w-1/2 rounded-2xl'>
+          <div className='md:w-1/2 rounded-2xl'>
 
-            <div className="w-full flex justify-between col-span-2 rounded-2xl p-6
+            <div className="w-full flex justify-between col-span-2 rounded-2xl p-4
               bg-gradient-to-br from-[#c6c8cf]/5 to-[#d2d3d2]/10
               border border-white/10 
-              backdrop-blur-xl mb-2
+              backdrop-blur-xl mb-6
+                
               ">
-                <h2 className="text-white text-lg mb-4">SALDO TOTAL</h2>
-                <p className='text-2xl font-bold'>{`$${dataHome?.currentBalance?.toLocaleString()}`}</p>
+                <div className="flex flex-col ">
+                  <h2 className="text-white text-base my-2">SALDO TOTAL</h2>
+                  <p className='text-2xl font-bold'>{`$${dataHome?.currentBalance?.toLocaleString()}`}</p>
+                </div>
+                <div className='flex items-center p-3 m-4 rounded-xl  bg-green-500/10 '>
+                  <LuWallet className="flex text-green-500 text-2xl "/>
+                </div>
+                  
                 {/* Contenido gráfico */}
 
             </div> 
@@ -152,23 +166,31 @@ const HomeDash = () => {
               <div className="rounded-xl p-4 
               bg-gradient-to-br from-slate-900/70 to-green-900/30 
               border border-white/10 backdrop-blur">
+                <div className="flex justify-between items-center">
+                  <div className="block justify-around items-center">
+                      <p className="text-gray-400 text-sm">Ingresos</p>
+                      <h3 className="text-white text-xl font-bold">{`$${dataHome?.totalIncome?.toLocaleString()}`}</h3>
+                  </div>
+                    <IoTrendingUpOutline className="text-green-500 text-2xl font-bold"/>
+                </div>
 
-                <p className="text-gray-400 text-sm">Ingresos</p>
-                <h3 className="text-white text-xl font-bold">{`$${dataHome?.totalIncome?.toLocaleString()}`}</h3>
+                <hr className='my-4 border-gray-700'/>
 
-                <p className="text-gray-400 text-sm">Gastos</p>
-                <h3 className="text-xl font-bold text-red-500">{`$${dataHome?.totalExpenses?.toLocaleString()}`}</h3>
-                
+                <div className="flex justify-between items-center">
+                  <div className="block justify-around items-center">
+                    <p className="text-gray-400 text-sm">Gastos</p>
+                    <h3 className="text-xl font-bold text-red-500">{`$${dataHome?.totalExpenses?.toLocaleString()}`}</h3>
+                  </div>
+                  <IoTrendingDownOutline className="text-red-500 text-2xl font-bold" />
+                </div>
 
               </div>
-
-            
 
             </div>
           </div>
 
         </div>
-        <div className=" flex gap-6 pb-8  ">
+        <div className=" flex gap-6 pb-8 flex-col md:flex-row ">
           {/* Aquí puedes agregar otro gráfico o información adicional */}
           <div className=' 
             w-full
@@ -182,14 +204,14 @@ const HomeDash = () => {
             overflow-hidden
             shadow-[0_0_40px_rgba(34,197,94,0.08)]'
           >
-            <TableHome/>
+            <TableHome movimientos={recentMovements} />
           </div>
-          <div className=' w-[49%] rounded-xl border border-white/10 backdrop-blur'>
+          <div className=' w-full md:w-[49%] rounded-xl border border-white/10 backdrop-blur'>
             <GraficLineal/>
           </div>
         </div>
        
-          
+        
       </div>  
     </div>
   )

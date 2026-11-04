@@ -11,10 +11,14 @@ const handleResponse = async (response) => {
 };
 
 // Obtener headers con el token de autenticación
-const getAuthHeaders = () => {
+const getAuthHeaders = (body) => {
   const token = localStorage.getItem('token');
+  const isMultipart = body instanceof FormData;
+
   return {
-    'Content-Type': 'application/json',
+    // No se debe establecer Content-Type manualmente para FormData:
+    // el navegador agrega el boundary necesario para multipart/form-data.
+    ...(!isMultipart && { 'Content-Type': 'application/json' }),
     ...(token && { Authorization: `Bearer ${token}` })
   };
 };
@@ -71,6 +75,7 @@ export const isAuthenticated = () => {
 export const logoutUser = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
+
 };
 
 // Petición genérica con autenticación
@@ -78,9 +83,75 @@ export const fetchWithAuth = async (endpoint, options = {}) => {
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers: {
-      ...getAuthHeaders(),
+      ...getAuthHeaders(options.body),
       ...options.headers
     }
+  });
+
+  if (response.status === 401) {
+    // token inválido o expirado
+    logoutUser();
+    throw new Error('Token inválido o expirado');
+  }
+
+  return handleResponse(response);
+};
+
+//Petición para enviar actualizar la imagen del usuario
+export const uploadProfileImage = async (imageFile) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+  return fetchWithAuth('/api/users/profile-image', {
+    method: 'POST',
+    body: formData
+  });
+};
+
+// Peticion para actualizar los datos del usuario
+export const updateProfile = async ({ firstName, lastName, email }) => {
+  return fetchWithAuth(`/api/users/profile`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      email
+    })
+  });
+};
+
+// Petición POST para cambiar contraseña
+export const changePassword = async (currentPassword, newPassword, confirmPassword) => {
+  return fetchWithAuth('/api/auth/change-password', {
+    method: 'POST',
+    body: JSON.stringify({
+      currentPassword,
+      newPassword,
+      confirmPassword
+    })
+  });
+};
+
+// Solicitar por correo el enlace para recuperar la contraseña
+export const requestPasswordReset = async (email) => {
+  const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email })
+  });
+
+  return handleResponse(response);
+};
+
+// Guardar una nueva contraseña usando el token recibido por correo
+export const resetPassword = async (token, newPassword) => {
+  const response = await fetch(`${API_URL}/api/auth/reset-password`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ token, newPassword })
   });
 
   return handleResponse(response);
