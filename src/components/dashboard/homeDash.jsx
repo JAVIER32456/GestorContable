@@ -71,11 +71,11 @@ const HomeDash = () => {
                 {/* Centro */}
                 <div className="absolute z-10 flex flex-col items-center">
                   <h2 className="text-1xl font-bold text-white">
-                    ${dataHome ? dataHome.currentBalance.toLocaleString() : "Cargando..."}
+                    ${dataHome ? dataHome.currentBalanceMonthly?.toLocaleString() : "Sin Datos"}
                   </h2>
 
                   <p className="text-gray-400 text-sm">
-                    Total Movimientos
+                    Movimientos
                   </p>
                   
                 </div>
@@ -117,7 +117,7 @@ const HomeDash = () => {
                       </span>
 
                       <span className="text-white text-1xl font-bold">
-                        ${expense.total.toLocaleString()}
+                        ${expense.total?.toLocaleString() ?? "0"}
                       </span>
                     </div>
 
@@ -150,7 +150,7 @@ const HomeDash = () => {
               ">
                 <div className="flex flex-col ">
                   <h2 className="text-white text-base my-2">SALDO TOTAL</h2>
-                  <p className='text-2xl font-bold'>{`$${dataHome?.currentBalance?.toLocaleString()}`}</p>
+                  <p className='text-2xl font-bold'>{`$${dataHome?.currentBalance?.toLocaleString() ?? "0"}`}</p>
                 </div>
                 <div className='flex items-center p-3 m-4 rounded-xl  bg-green-500/10 '>
                   <LuWallet className="flex text-green-500 text-2xl "/>
@@ -168,8 +168,8 @@ const HomeDash = () => {
               border border-white/10 backdrop-blur">
                 <div className="flex justify-between items-center">
                   <div className="block justify-around items-center">
-                      <p className="text-gray-400 text-sm">Ingresos</p>
-                      <h3 className="text-white text-xl font-bold">{`$${dataHome?.totalIncome?.toLocaleString()}`}</h3>
+                      <p className="text-gray-400 text-sm">Ingresos Mensuales</p>
+                      <h3 className="text-white text-xl font-bold">{`$${dataHome?.monthlyIncome?.toLocaleString() ?? "0"}`}</h3>
                   </div>
                     <IoTrendingUpOutline className="text-green-500 text-2xl font-bold"/>
                 </div>
@@ -178,8 +178,8 @@ const HomeDash = () => {
 
                 <div className="flex justify-between items-center">
                   <div className="block justify-around items-center">
-                    <p className="text-gray-400 text-sm">Gastos</p>
-                    <h3 className="text-xl font-bold text-red-500">{`$${dataHome?.totalExpenses?.toLocaleString()}`}</h3>
+                    <p className="text-gray-400 text-sm">Gastos Mensuales</p>
+                    <h3 className="text-xl font-bold text-red-500">{`$${dataHome?.monthlyExpenses?.toLocaleString() ?? "0"}`}</h3>
                   </div>
                   <IoTrendingDownOutline className="text-red-500 text-2xl font-bold" />
                 </div>

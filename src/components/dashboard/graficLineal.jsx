@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import {
   LineChart,
   Line,
@@ -7,18 +7,33 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import {  getDataHomeDashboard } from '../../services/dataHomeDash.js'
 
-const data = [
-  { name: "Ene", gastos: 500 },
-  { name: "Feb", gastos: 500 },
-  { name: "Mar", gastos: 600 },
-  { name: "Abr", gastos: 660 },
-  { name: "May", gastos: 600 },
-  { name: "Jun", gastos: 650 },
-];
 
 
 const GraficLineal = () => {
+
+  const [ dataHom, setDataHom ] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getDataHomeDashboard();
+        setDataHom(result.data.cumulativeBalanceTrend);
+        console.log('dataHom:', result.data.cumulativeBalanceTrend);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  // Datos del gráfico lineal
+  const data = (dataHom ?? []).map((item) => ({
+    month: item.month?.split(' ')[0]?.slice(0, 3) ?? '', // Solo toma el nombre del mes
+    totalBalance: item.totalBalance ?? 0,
+  }));
+
   return (
     <div className="
     relative
@@ -37,7 +52,7 @@ const GraficLineal = () => {
       {/* Header */}
       <div className="relative z-10 mb-4">
         <h2 className="text-white text-xl font-semibold">
-          Gastos Mensuales
+          Rentabilidad Mensual
         </h2>
 
         <p className="text-gray-400 text-sm">
@@ -57,11 +72,12 @@ const GraficLineal = () => {
             />
 
             <XAxis
-              dataKey="name"
+              dataKey="month"
               stroke="#94a3b8"
             />
 
             <Tooltip
+              formatter={(value) => Number(value).toLocaleString('es-CO')}
               contentStyle={{
                 background: "#0f172a",
                 border: "1px solid rgba(255,255,255,0.1)",
@@ -72,7 +88,7 @@ const GraficLineal = () => {
 
             <Line
               type="monotone"
-              dataKey="gastos"
+              dataKey="totalBalance"
               stroke="#22c55e"
               strokeWidth={3}
               dot={{

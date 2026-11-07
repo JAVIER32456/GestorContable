@@ -1,41 +1,5 @@
 import React from 'react'
-
-
-// const movimientos = [
-//   {
-//     id: 1,
-//     descripcion: "Pago Netflix",
-//     categoria: "Entretenimiento",
-//     fecha: "29 Abr 2026",
-//     tipo: "Gasto",
-//     monto: -4500,
-//   },
-//   {
-//     id: 2,
-//     descripcion: "Salario",
-//     categoria: "Nomina",
-//     fecha: "28 Abr 2026",
-//     tipo: "Ingreso",
-//     monto: 3200,
-//   },
-//   {
-//     id: 3,
-//     descripcion: "Comida",
-//     categoria: "Supermercado",
-//     fecha: "27 Abr 2026",
-//     tipo: "Gasto",
-//     monto: -120,
-//   },
-//   {
-//     id: 4,
-//     descripcion: "moto a la Universidad",
-//     categoria: "Transporte",
-//     fecha: "26 Abr 2026",
-//     tipo: "Gasto",
-//     monto: -35,
-//   },
-// ];
-
+import { Link } from 'react-router-dom';
 
 const TableHome = ({ movimientos = []}) => {
 
@@ -57,9 +21,11 @@ const TableHome = ({ movimientos = []}) => {
           </p>
         </div>
 
-        <button className="bg-emerald-500/20 hover:bg-emerald-600 transition px-3 sm:px-4 py-2 rounded-lg text-white text-xs sm:text-sm whitespace-nowrap">
-          Ver todos
-        </button>
+        <Link to="/dashboard/accounting">
+            <button className="bg-emerald-500/20 hover:bg-emerald-600 transition px-3 sm:px-4 py-2 rounded-lg text-white text-xs sm:text-sm whitespace-nowrap">
+              Ver todos
+            </button>
+        </Link>
       </div>
 
       {/* Desktop - Tabla */}

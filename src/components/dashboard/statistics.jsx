@@ -1,41 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoTrendingUpOutline, IoTrendingDownOutline, IoCashOutline  } from "react-icons/io5";
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { TbTrendingUp } from "react-icons/tb";
 import { TfiStatsUp } from "react-icons/tfi";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { getDataStatistics } from '../../services/dataHomeDash.js';
+
 
 const Statistics = () => {
+
+  const [statisticsData, setStatisticsData] = useState(null);
+
   const [filter, setFilter] = useState('all'); // 'all' o 'month'
 
-    // Datos del gráfico de barras
-  const barChartData = [
-    { month: 'Abr', ingresos: 3800000, gastos: 900000 },
-    { month: 'May', ingresos: 4000000, gastos: 1600000 },
-    { month: 'Jun', ingresos: 4500000, gastos: 1900000 },
-    { month: 'Jul', ingresos: 4200000, gastos: 1700000 },
-    { month: 'Ago', ingresos: 6100000, gastos: 2000000 },
-    { month: 'Sep', ingresos: 6400000, gastos: 1500000 },
-  ];
 
-  // Datos distribución de gastos
-  const expensesData = [
-    { name: 'Servicios Públicos', value: 1000000 },
-    { name: 'Vivienda', value: 950000 },
-    { name: 'Alimentación', value: 250000 },
-    { name: 'Combustible', value: 228000 },
-    { name: 'Entretenimiento', value: 4500 },
-  ];
+    // Datos distribución de gastos
+  const expensesData = (statisticsData?.categoryAnalysis ?? [])
+    .filter((item) => item.expense > 0)
+    .map((item) => ({
+      name: item.categoryName,
+      value: item.expense,
+  }));
+
 
   // Datos distribución de ingresos
-  const incomeData = [
-    { name: 'Nómina', value: 5250000 },
-    { name: 'Ingresos Adicionales', value: 978500 },
-    { name: 'Inversiones', value: 200000 },
-    { name: 'Gastos Ocasionales', value: 145 },
-  ];
+  const incomeData = (statisticsData?.categoryAnalysis ?? [])
+    .filter((item) => item.income > 0)
+    .map((item) => ({
+      name: item.categoryName,
+      value: item.income,
+  }));
 
   const COLORS_PIE = ['#3b82f6', '#06b6d4', '#f59e0b', '#ec4899', '#8b5cf6'];
+
+  useEffect(() => {
+    const fetchStatisticsData = async () => {
+      try {
+        const result = await getDataStatistics();
+        console.log('datos de estadisticas:', result.data);
+        setStatisticsData(result.data);
+      } catch (error) {
+        console.error('Error fetching statistics data:', error);
+      }
+    };
+
+    fetchStatisticsData();
+  }, []);
+
+  // Datos del gráfico de barras
+  const barChartData = (statisticsData?.monthlyTrend ?? []).map((item) => ({
+    month: item.month?.split(' ')[0]?.slice(0, 3) ?? '', // Solo toma el nombre del mes
+    ingresos: item.totalIncome,
+    gastos: item.totalExpense,
+  }));
 
   const handleExport = (type) => {
     console.log(`Exportar ${type}`);
@@ -82,24 +98,24 @@ const Statistics = () => {
       </div>
 
       {/* Grid de tarjetas - responsive */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">    
         {/* Tarjeta Ingresos */}
         <div className="bg-gradient-to-br from-slate-900/70 to-green-900/30 border border-white/10 backdrop-blur rounded-xl p-4">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-gray-400 text-sm">Ingresos totales</p>
-              <h3 className="text-xl md:text-2xl font-bold text-green-400 mt-2">$6.428.645</h3>
+              <p className="text-gray-400 text-sm">Ingresos totales anual</p>
+              <h3 className="text-xl md:text-2xl font-bold text-green-400 mt-2">${(statisticsData?.summary?.annualIncome ?? 0).toLocaleString()}</h3>
             </div>
             <IoTrendingUpOutline className="text-green-500 text-2xl flex-shrink-0" />
           </div>
         </div>
-
+     
         {/* Tarjeta Gastos */}
         <div className="bg-gradient-to-br from-slate-900/70 to-red-900/30 border border-white/10 backdrop-blur rounded-xl p-4">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-gray-400 text-sm">Gastos totales</p>
-              <h3 className="text-xl md:text-2xl font-bold text-red-400 mt-2">$2.424.500</h3>
+              <p className="text-gray-400 text-sm">Gastos totales anual</p>
+              <h3 className="text-xl md:text-2xl font-bold text-red-400 mt-2">${(statisticsData?.summary?.annualExpenses ?? 0).toLocaleString()}</h3>
             </div>
             <IoTrendingDownOutline className="text-red-500 text-2xl flex-shrink-0" />
           </div>
@@ -110,7 +126,7 @@ const Statistics = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-gray-400 text-sm">Saldo neto</p>
-              <h3 className="text-xl md:text-2xl font-bold text-cyan-400 mt-2">$4.004.145</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-cyan-400 mt-2">${(statisticsData?.summary?.annualNetBalance ?? 0).toLocaleString()}</h3>
             </div>
             <IoCashOutline className="text-cyan-500 text-2xl flex-shrink-0" />
           </div>
@@ -121,7 +137,7 @@ const Statistics = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-gray-400 text-sm">Tasa de ahorro</p>
-              <h3 className="text-xl md:text-2xl font-bold text-blue-400 mt-2">62.3%</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-blue-400 mt-2">{(statisticsData?.summary?.annualSavingsRate ?? 0).toFixed(1)}%</h3>
             </div>
             <TfiStatsUp className="text-blue-500 text-2xl flex-shrink-0" />
           </div>
@@ -165,22 +181,24 @@ const Statistics = () => {
               <PieChart>
                 <Pie
                   data={expensesData}
+                  dataKey="value"
                   cx="50%"
                   cy="50%"
                   innerRadius={30}
                   outerRadius={80}
                   paddingAngle={2}
-                  dataKey="value"
                 >
-                  {expensesData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS_PIE[index % COLORS_PIE.length]} />
+                  {expensesData.map((item, index) => (
+                    <Cell key={item.name} 
+                      fill={COLORS_PIE[index % COLORS_PIE.length]} 
+                    />
                   ))}
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
             <div className="space-y-2  flex-1 flex-col">
               {expensesData.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
+                <div key={item.name} className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS_PIE[index % COLORS_PIE.length] }}></div>
                   <span className="text-gray-300">{item.name}</span>
                   <span className="text-white font-semibold ml-auto">${item.value.toLocaleString()}</span>
@@ -213,15 +231,15 @@ const Statistics = () => {
                   paddingAngle={2}
                   dataKey="value"
                 >
-                  {incomeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS_PIE[index % COLORS_PIE.length]} />
+                  {incomeData.map((item, index) => (
+                    <Cell key={item.name} fill={COLORS_PIE[index % COLORS_PIE.length]} />
                   ))}
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
             <div className="space-y-2 flex-1 flex-col">
               {incomeData.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
+                <div key={item.name} className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS_PIE[index % COLORS_PIE.length] }}></div>
                   <span className="text-gray-300">{item.name}</span>
                   <span className="text-white font-semibold ml-auto">${item.value.toLocaleString()}</span>

@@ -127,11 +127,11 @@ const TableMove = () => {
                 key={mov.id}
                 className="border-b border-slate-900 hover:bg-slate-800/40 transition"
               >
-                <td className="py-2 px-1 text-white font-medium truncate max-w-xs">
+                <td className="py-2 px-1  text-slate-300 truncate max-w-xs">
                   {mov.description}
                 </td>
 
-                <td className="py-2 px-1 text-slate-300 truncate">
+                <td className="py-2 px-1 text-white truncate font-medium">
                   {mov.category.name}
                 </td>
 
